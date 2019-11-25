@@ -34,16 +34,20 @@ export default {
   data: () => ({
     links: [
       {
-        name: 'Home',
+        name: 'MainScreen',
         to: '/'
       },
       {
-        name: 'Page 1',
-        to: '/page-1'
+        name: 'Login',
+        to: '/account/signin'
       },
       {
-        name: 'Bad Link',
-        to: '/random-bad-url'
+        name: 'Register',
+        to: '/account/signup'
+      },
+      {
+        name: '404',
+        to: '/404'
       }
     ]
   })

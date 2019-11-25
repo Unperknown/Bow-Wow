@@ -1,12 +1,12 @@
 <template>
   <div>
-    <h1>Page 1</h1>
+    <h1>Register</h1>
   </div>
 </template>
 
 <style scoped>
 h1 {
-  color: green
+  color: gold;
 }
 </style>
 
