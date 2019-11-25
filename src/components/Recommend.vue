@@ -1,12 +1,12 @@
 <template>
   <div>
-    <h1>Home</h1>
+    <h1>Recommend</h1>
   </div>
 </template>
 
 <style scoped>
 h1 {
-  color: blue
+  color: black;
 }
 </style>
 

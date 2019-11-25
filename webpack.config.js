@@ -4,6 +4,7 @@ const { VueLoaderPlugin } = require('vue-loader')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin')
 
 module.exports = (env, argv) => ({
   mode: argv && argv.mode || 'development',
@@ -62,7 +63,15 @@ module.exports = (env, argv) => ({
       from: path.resolve(__dirname, 'static'),
       to: path.resolve(__dirname, 'dist'),
       toType: 'dir'
-    }])
+    }]),
+    new SWPrecacheWebpackPlugin({
+      cacheId: 'bow-wow',
+      filename: 'service-worker-cache.js',
+      staticFileGlobs: ['dist/**/*.{js,css}', '/'],
+      minify: true,
+      stripPrefix: 'dist/',
+      dontCacheBustUrlsMatching: /\.\w{6}\./
+    })
   ],
 
   optimization: {
