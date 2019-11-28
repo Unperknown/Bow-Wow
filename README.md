@@ -3,7 +3,6 @@
 ![Github top language](https://img.shields.io/github/languages/top/Unperknown/Bow-Wow)
 ![Bitbucket open issues](https://img.shields.io/github/issues/Unperknown/Bow-Wow)
 ![GitHub pull requests](https://img.shields.io/github/issues-pr/Unperknown/Bow-Wow)
-![GitHub](https://img.shields.io/github/license/Unperknown/Bow-Wow)
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/Unperknown/Bow-wow)
 
 # 바우와우
