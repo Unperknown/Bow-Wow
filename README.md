@@ -1,4 +1,4 @@
-![author](https://img.shields.io/badge/author-Unperknown-lightgrey.svg)
+![Contributor](https://img.shields.io/badge/contributor-Unperknown,winkpsj0529-blue.svg)
 ![HitCount](http://hits.dwyl.io/Unperknown/Bow-Wow.svg)
 ![Github top language](https://img.shields.io/github/languages/top/Unperknown/Bow-Wow)
 ![Bitbucket open issues](https://img.shields.io/github/issues/Unperknown/Bow-Wow)
@@ -19,7 +19,7 @@
 ## 🗓 마일스톤
 
 ### 11/13 - 프로젝트 착수 👩‍💻👨‍💻
-### 12/11 - 프로젝트 산출물 제출 및 마감 😳😨
+### 12/11 - 프로젝트 산출물 제출 및 마감 😳😨~😱~
 ### 12/13 - 산출물 시연 및 프리젠테이션 👨‍🏫👩‍🏫
 
 ## 🔑 사용 기술
@@ -30,5 +30,11 @@
 ## 📱 릴리즈
 
 ### 1차 배포
+
+#### 프로토타입
+
+곧 업로드될 예정입니다! 😄
+
+#### 산출물
 
 한창 개발 중입니다!
