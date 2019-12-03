@@ -30,6 +30,6 @@
 
 <script>
 export default {
-  name: "MainScreen"
+  name: "SplashScreen"
 };
 </script>

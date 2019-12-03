@@ -5,6 +5,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin')
+const VuetifyLoaderPlugin = require('vuetify-loader/lib/plugin')
 
 module.exports = (env, argv) => ({
   mode: argv && argv.mode || 'development',
@@ -36,6 +37,30 @@ module.exports = (env, argv) => ({
           'css-loader'
         ],
         exclude: /\.module\.css$/
+      },
+      {
+        test: /\.s(c|a)ss$/,
+        use: [
+          'vue-style-loader',
+          'css-loader',
+          {
+            loader: 'sass-loader',
+            // Requires sass-loader@^7.0.0
+            options: {
+              implementation: require('sass'),
+              fiber: require('fibers'),
+              indentedSyntax: true // optional
+            },
+            // Requires sass-loader@^8.0.0
+            options: {
+              implementation: require('sass'),
+              sassOptions: {
+                fiber: require('fibers'),
+                indentedSyntax: true // optional
+              },
+            },
+          },
+        ],
       }
     ]
   },
@@ -71,7 +96,8 @@ module.exports = (env, argv) => ({
       minify: true,
       stripPrefix: 'dist/',
       dontCacheBustUrlsMatching: /\.\w{6}\./
-    })
+    }),
+    new VuetifyLoaderPlugin()
   ],
 
   optimization: {
