@@ -1,55 +1,60 @@
 <template>
-  <div>
-    <ul>
-      <li v-for="(link, index) in links" :key="index">
-        <router-link :to="link.to">{{ link.name }}</router-link>
-      </li>
-    </ul>
-    <main>
-      <router-view/>
-    </main>
-  </div>
+  <v-app>
+    <v-app-bar
+      app
+      color="primary"
+      dark
+    >
+      <div class="d-flex align-center">
+        <v-img
+          alt="Vuetify Logo"
+          class="shrink mr-2"
+          contain
+          src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
+          transition="scale-transition"
+          width="40"
+        />
+
+        <v-img
+          alt="Vuetify Name"
+          class="shrink mt-1 hidden-sm-and-down"
+          contain
+          min-width="100"
+          src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png"
+          width="100"
+        />
+      </div>
+
+      <v-spacer></v-spacer>
+
+      <v-btn
+        href="https://github.com/vuetifyjs/vuetify/releases/latest"
+        target="_blank"
+        text
+      >
+        <span class="mr-2">Latest Release</span>
+        <v-icon>mdi-open-in-new</v-icon>
+      </v-btn>
+    </v-app-bar>
+
+    <v-content>
+      <HelloWorld/>
+    </v-content>
+  </v-app>
 </template>
 
-<style scoped>
-  ul {
-    list-style: none;
-    display: flex;
-    padding: 0;
-  }
-  li {
-    padding: 5px 15px 5px 0;
-  }
-  li a {
-    text-decoration: none;
-    color: black;
-  }
-  li a:hover {
-    color: #404040;
-  }
-</style>
-
 <script>
+import HelloWorld from './components/HelloWorld';
+
 export default {
+  name: 'App',
+
+  components: {
+    HelloWorld,
+  },
+
   data: () => ({
-    links: [
-      {
-        name: 'MainScreen',
-        to: '/'
-      },
-      {
-        name: 'Login',
-        to: '/account/signin'
-      },
-      {
-        name: 'Register',
-        to: '/account/signup'
-      },
-      {
-        name: '404',
-        to: '/404'
-      }
-    ]
-  })
-}
+    //
+  }),
+};
 </script>
