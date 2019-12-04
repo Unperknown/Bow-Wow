@@ -1,87 +1,42 @@
 <template>
-  <v-app id="inspire">
-    <v-content>
-      <v-container
-        class="fill-height"
-        fluid
-      >
-        <v-row
-          align="center"
-          justify="center"
-        >
-          <v-col
-            cols="12"
-            sm="8"
-            md="4"
-          >
-            <v-card class="elevation-12">
-              <v-toolbar
-                color="pink lighten-3"
-                dark
-                flat
-              >
+  <v-bottom-navigation fixed="true"
+    :value="activeBtn"
+    color="pink lighten-1"
+  >
+    <v-btn>
+      <span>실종</span>
+      <v-icon>scatter_plot</v-icon>
+    </v-btn>
 
-                <v-toolbar-title>Bow-Wow Login</v-toolbar-title>
-                <v-spacer />
-                <v-tooltip bottom>
-                  <template v-slot:activator="{ on }">
-                    <v-btn
-                      :href="source"
-                      icon
-                      large
-                      target="_blank"
-                      v-on="on"
-                    >
-                      <v-icon>mdi-code-tags</v-icon>
-                    </v-btn>
-                  </template>
-                  <span>Source</span>
-                </v-tooltip>
-                <v-tooltip right>
-                  <template v-slot:activator="{ on }">
-                    <v-btn
-                      icon
-                      large
-                      href="https://codepen.io/johnjleider/pen/pMvGQO"
-                      target="_blank"
-                      v-on="on"
-                    >
-                      <v-icon>mdi-codepen</v-icon>
-                    </v-btn>
-                  </template>
-                  <span>Codepen</span>
-                </v-tooltip>
-              </v-toolbar>
-              <v-card-text>
-                <v-form>
-                  <v-text-field
-                    label="ID"
-                    name="id"
-                    type="text"
-                  />
-                  <v-text-field
-                    id="password"
-                    label="Password"
-                    name="password"
-                    type="password"
-                  />
-                </v-form>
-              </v-card-text>
-              <v-card-actions>
-                <v-spacer />
-                <v-btn text large color="pink lighten-1">Login</v-btn>
-                <v-btn text large color="pink lighten-1">Sign-in</v-btn>
-              </v-card-actions>
-            </v-card>
-          </v-col>
-        </v-row>
-      </v-container>
-    </v-content>
-  </v-app>
+    <v-btn>
+      <span>SNS</span>
+      <v-icon>mode_comment</v-icon>
+    </v-btn>
+
+    <v-btn>
+      <span>홈</span>
+      <v-icon>home</v-icon>
+    </v-btn>
+
+    <v-btn>
+      <span>동물관리</span>
+      <v-icon>healing</v-icon>
+    </v-btn>
+
+    <v-btn>
+      <span>추천</span>
+      <v-icon>thumb_up_alt</v-icon>
+    </v-btn>
+  </v-bottom-navigation>
 </template>
 
 <script>
 export default {
-  name: 'App'
+  name: 'App',
+  data () {
+    return {
+      activeBtn: 1
+    }
+  }
 }
 </script>
