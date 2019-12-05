@@ -27,24 +27,26 @@
       lg="5"
       xl2="2"
     >
-      <v-card flat shaped="true">
+      <v-file-input
+      multiple
+    accept="image/png, image/jpeg, image/bmp"
+    placeholder="Put up a picture of your pet."
+    prepend-icon="camera"
+    label="Picture"
+  ></v-file-input>
+      <v-card
+        class="mx-auto">
         <v-card-text>
-          <v-row class="mb-4" align="center">
-            <v-avatar color="pink lighten-1" class="mr-4"></v-avatar>
-            <strong class="title">My Pet {{ n }}</strong>
-            <v-spacer></v-spacer>
-            <v-btn icon>
-              <v-icon>account_circle</v-icon>
-            </v-btn>
-          </v-row>
-          <v-img src="@/assets/dog.png" width="30%" class="mx-auto">
-          </v-img>
-          <div>
-          <h3 class="title font-weight-light mt-3 text-center">Name</h3>
-          <p class="text-center mt-2" grey--text>age:</p>
-          <p class="text-center" grey--text>weight:</p>
-        </div>
-        </v-card-text>
+      <div>Writing</div>
+      <v-textarea
+          solo
+          name="input-7-4"
+          label="text"
+        ></v-textarea>
+        <v-row justify="end">
+          <v-btn text large color="pink lighten-1">Submit</v-btn>
+        </v-row>
+    </v-card-text>
       </v-card>
       <v-bottom-navigation fixed="true"
       :value="activeBtn"
@@ -85,7 +87,7 @@
 
 <script>
 export default {
-  name: 'home',
+  name: 'Writing',
   data () {
     return {
       bottomNav: 'recent'

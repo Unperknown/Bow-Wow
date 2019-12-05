@@ -17,6 +17,13 @@
     </v-toolbar>
   </v-card>
 <v-comtainer>
+  <v-row align="start" justify="end">
+    <v-btn  class="mx-2" fab dark large color="pink" icon>
+    <v-icon>
+    add_circle
+  </v-icon>
+  </v-btn>
+  </v-row>
   <v-row
     align="center"
     justify="center">
@@ -27,25 +34,36 @@
       lg="5"
       xl2="2"
     >
-      <v-card flat shaped="true">
-        <v-card-text>
-          <v-row class="mb-4" align="center">
-            <v-avatar color="pink lighten-1" class="mr-4"></v-avatar>
-            <strong class="title">My Pet {{ n }}</strong>
-            <v-spacer></v-spacer>
-            <v-btn icon>
-              <v-icon>account_circle</v-icon>
-            </v-btn>
-          </v-row>
-          <v-img src="@/assets/dog.png" width="30%" class="mx-auto">
-          </v-img>
-          <div>
-          <h3 class="title font-weight-light mt-3 text-center">Name</h3>
-          <p class="text-center mt-2" grey--text>age:</p>
-          <p class="text-center" grey--text>weight:</p>
-        </div>
-        </v-card-text>
-      </v-card>
+      <v-card
+    flat class="mx-auto"
+  >
+    <v-list-item>
+      <v-list-item-avatar color="white">
+        <v-icon icon>
+          account_circle
+        </v-icon>
+      </v-list-item-avatar>
+      <v-list-item-content>
+        <v-list-item-title class="headline">My Pet</v-list-item-title>
+        <v-list-item-subtitle>by Bow-Wow</v-list-item-subtitle>
+      </v-list-item-content>
+    </v-list-item>
+
+    <v-carousel hide-delimiters>
+    <v-carousel-item
+      v-for="(item,i) in items"
+      :key="i"
+      :src="item.src"
+    ></v-carousel-item>
+  </v-carousel>
+    <v-btn icon>
+        <v-icon>favorite</v-icon>
+      </v-btn>
+      <v-divider></v-divider>
+    <v-card-text>
+     Bow-Wow SNS
+    </v-card-text>
+  </v-card>
       <v-bottom-navigation fixed="true"
       :value="activeBtn"
       grow
@@ -85,10 +103,20 @@
 
 <script>
 export default {
-  name: 'home',
+  name: 'SocialNetwork',
   data () {
     return {
-      bottomNav: 'recent'
+      bottomNav: 'recent',
+
+      items: [
+        {
+          src: 'https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg'
+        },
+
+        {
+          src: 'https://cdn.vuetifyjs.com/images/carousel/sky.jpg'
+        }
+      ]
     }
   }
 }
