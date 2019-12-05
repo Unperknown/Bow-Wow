@@ -33,6 +33,9 @@
       <v-window-item :value="1">
         <v-card-text>
           <v-text-field
+            v-model="id"
+            :counter="10"
+            :rules="nameRules"
             label="Id"
           ></v-text-field>
           <span class="caption grey--text text--darken-1">
@@ -44,10 +47,16 @@
       <v-window-item :value="2">
         <v-card-text>
           <v-text-field
+            v-model="password"
+            :counter="10"
+            :rules="nameRules"
             label="Password"
             type="password"
           ></v-text-field>
           <v-text-field
+            v-model="password2"
+            :counter="10"
+            :rules="nameRules"
             label="Confirm Password"
             type="password"
           ></v-text-field>
@@ -128,6 +137,21 @@
 export default {
   name: 'Signup',
   data: () => ({
+    valid: false,
+
+    id: '',
+
+    password: '',
+
+    password2: '',
+
+    name: '',
+
+    nameRules: [
+      v => !!v || '필수 항목 입니다.',
+      v => v.length <= 10 || '10자리 이내로 입력해주세요.'
+    ],
+
     step: 1
   }),
   computed: {
