@@ -46,7 +46,7 @@
               <v-card-actions>
                 <v-spacer />
                 <v-btn text large color="pink lighten-1">Login</v-btn>
-                <v-btn text large color="pink lighten-1">Sign-in</v-btn>
+                <v-btn text large color="pink lighten-1">Sign-up</v-btn>
               </v-card-actions>
             </v-card>
           </v-col>

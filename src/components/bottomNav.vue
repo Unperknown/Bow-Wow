@@ -14,12 +14,7 @@
           <span>SNS</span>
           <v-icon>mode_comment</v-icon>
         </v-btn>
-
-        <v-btn>
-          <span>홈</span>
-          <v-icon>home</v-icon>
-        </v-btn>
-
+        
         <v-btn>
           <span>동물관리</span>
           <v-icon>healing</v-icon>

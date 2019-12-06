@@ -12,8 +12,10 @@
         <v-img src="@/assets/logo(2).png" width="30px">
         </v-img>
       </v-app-bar-nav-icon>
-
       <v-toolbar-title>Bow-Wow</v-toolbar-title>
+      <v-row justify="end">
+        <v-app-bar-nav-icon></v-app-bar-nav-icon>
+      </v-row>
     </v-toolbar>
   </v-card>
 <v-comtainer>
@@ -60,12 +62,6 @@
           <span>SNS</span>
           <v-icon>mode_comment</v-icon>
         </v-btn>
-
-        <v-btn>
-          <span>홈</span>
-          <v-icon>home</v-icon>
-        </v-btn>
-
         <v-btn>
           <span>동물관리</span>
           <v-icon>healing</v-icon>
