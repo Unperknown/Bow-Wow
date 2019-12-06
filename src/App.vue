@@ -3,7 +3,7 @@
 <v-card
     color="grey lighten-4"
     flat
-    height="60px"
+    height="50px"
     tile
     mb-0
   >
@@ -12,11 +12,55 @@
         <v-img src="@/assets/logo(2).png" width="30px">
         </v-img>
       </v-app-bar-nav-icon>
-
       <v-toolbar-title>Bow-Wow</v-toolbar-title>
+      <v-row justify="end">
+        <v-app-bar-nav-icon></v-app-bar-nav-icon>
+      </v-row>
     </v-toolbar>
   </v-card>
 <v-comtainer>
+  <v-row no-gutters>
+      <v-col order="last">
+        <v-card
+          class="pa-2"
+          outlined
+          tile
+        >
+          First, but last
+        </v-card>
+      </v-col>
+      <v-col>
+        <v-card
+          class="pa-2"
+          outlined
+          tile
+        >
+          Second, but unordered
+        </v-card>
+      </v-col>
+      <v-col order="first">
+        <v-hover v-slot:default="{ hover }">
+          <v-card
+          class="pa-2"
+          :elevation="hover ? 12 : 2"
+          outlined
+          tile
+        >
+          Third, but first
+        </v-card>
+        </v-hover>
+      </v-col>
+    </v-row>
+      <v-hover v-slot:default="{ hover }">
+        <v-card
+          :elevation="hover ? 12 : 2"
+          class="mx-auto"
+          height="300"
+          max-width="300"
+        >
+          <v-card-text class="my-4 text-center title">Hover over me!</v-card-text>
+        </v-card>
+      </v-hover>
   <v-row
     align="center"
     justify="center">
@@ -27,26 +71,7 @@
       lg="5"
       xl2="2"
     >
-      <v-card flat shaped="true">
-        <v-card-text>
-          <v-row class="mb-4" align="center">
-            <v-avatar color="pink lighten-1" class="mr-4"></v-avatar>
-            <strong class="title">My Pet {{ n }}</strong>
-            <v-spacer></v-spacer>
-            <v-btn icon>
-              <v-icon>account_circle</v-icon>
-            </v-btn>
-          </v-row>
-          <v-img src="@/assets/dog.png" width="30%" class="mx-auto">
-          </v-img>
-          <div>
-          <h3 class="title font-weight-light mt-3 text-center">Name</h3>
-          <p class="text-center mt-2" grey--text>age:</p>
-          <p class="text-center" grey--text>weight:</p>
-        </div>
-        </v-card-text>
-      </v-card>
-      <v-bottom-navigation fixed="true"
+     <v-bottom-navigation fixed="true"
       :value="activeBtn"
       grow
       color="pink lighten-1"
@@ -59,11 +84,6 @@
         <v-btn>
           <span>SNS</span>
           <v-icon>mode_comment</v-icon>
-        </v-btn>
-
-        <v-btn>
-          <span>홈</span>
-          <v-icon>home</v-icon>
         </v-btn>
 
         <v-btn>
