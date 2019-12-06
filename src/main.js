@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import axios from 'axios'
 
-import App from './App.vue'
+import Main from './Main.vue'
 
 import router from './router'
 import store from './store'
@@ -16,9 +16,14 @@ import 'material-design-icons-iconfont/dist/material-design-icons.css'
 Vue.config.productionTip = false
 Vue.prototype.$http = axios
 
+const token = localStorage.getItem('user-token')
+if (token) {
+  axios.defaults.headers.common['Authorization'] = token
+}
+
 new Vue({
   router,
   store,
   vuetify,
-  render: h => h(App)
-}).$mount('#app')
+  render: h => h(Main)
+}).$mount('#main')

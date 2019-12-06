@@ -1,22 +1,67 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
+import store from '../store'
+
+const ifNotAuthenticated = (to, from, next) => {
+  if (!store.getters.isAuthenticated) {
+    next()
+    return
+  }
+  next('/')
+}
+
+const ifAuthenticated = (to, from, next) => {
+  if (store.getters.isAuthenticated) {
+    next()
+    return
+  }
+  next('/account/signin')
+}
 
 Vue.use(VueRouter)
 
 const routes = [
   {
     path: '/',
-    name: 'home',
-    component: Home
+    name: 'Home',
+    component: () => import('../Main.vue'),
+    beforeEnter: ifAuthenticated
   },
   {
-    path: '/about',
-    name: 'about',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+    path: '/account/signup',
+    name: 'Register',
+    component: () => import('../views/Register.vue'),
+    beforeEnter: ifNotAuthenticated
+  },
+  {
+    path: '/account/signin',
+    name: 'Login',
+    component: () => import('../views/Login.vue'),
+    beforeEnter: ifNotAuthenticated
+  },
+  {
+    path: '/missing-animals',
+    name: 'MissingAnimals',
+    component: () => import('../views/Share.vue'),
+    beforeEnter: ifAuthenticated
+  },
+  {
+    path: '/share',
+    name: 'Share',
+    component: () => import('../views/Share.vue'),
+    beforeEnter: ifAuthenticated
+  },
+  {
+    path: '/pets',
+    name: 'Pets',
+    component: () => import('../views/Share.vue'),
+    beforeEnter: ifAuthenticated
+  },
+  {
+    path: '/recommend',
+    name: 'Recommend',
+    component: () => import('../views/Share.vue'),
+    beforeEnter: ifAuthenticated
   }
 ]
 

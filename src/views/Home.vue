@@ -1,18 +1,95 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+  <v-app id="app">
+    <v-card color="grey lighten-4" flat height="50px" tile mb-0>
+      <v-toolbar dense flat>
+        <v-app-bar-nav-icon to="/">
+          <v-img src="@/assets/logo(2).png" width="30px"></v-img>
+        </v-app-bar-nav-icon>
+      </v-toolbar>
+    </v-card>
+    <v-comtainer>
+      <router-view></router-view>
+      <v-row align="center" justify="center">
+        <v-col xs="12" sm="7" md="6" lg="5" xl2="2">
+          <v-card flat shaped="true">
+            <v-card-text>
+              <v-row class="mb-4" align="center">
+                <v-avatar color="pink lighten-1" class="mr-4"></v-avatar>
+                <strong class="title">My Pet {{ n }}</strong>
+                <v-spacer></v-spacer>
+                <v-btn icon>
+                  <v-icon>account_circle</v-icon>
+                </v-btn>
+              </v-row>
+              <v-img src="@/assets/dog.png" width="30%" class="mx-auto"></v-img>
+              <div>
+                <h3 class="title font-weight-light mt-3 text-center">Name</h3>
+                <p class="text-center mt-2" grey--text>age:</p>
+                <p class="text-center" grey--text>weight:</p>
+              </div>
+            </v-card-text>
+          </v-card>
+          <v-bottom-navigation fixed="true" :value="activeBtn" grow color="pink lighten-1">
+            <v-btn to="/missing-animals">
+              <span>실종</span>
+              <v-icon>scatter_plot</v-icon>
+            </v-btn>
+
+            <v-btn to="/share">
+              <span>SNS</span>
+              <v-icon>mode_comment</v-icon>
+            </v-btn>
+
+            <v-btn to="/pets">
+              <span>동물관리</span>
+              <v-icon>healing</v-icon>
+            </v-btn>
+
+            <v-btn to="/recommend">
+              <span>추천</span>
+              <v-icon>thumb_up_alt</v-icon>
+            </v-btn>
+          </v-bottom-navigation>
+        </v-col>
+      </v-row>
+    </v-comtainer>
+  </v-app>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
-
 export default {
-  name: 'home',
-  components: {
-    HelloWorld
-  }
+  name: 'Home',
+  data: () => ({
+    links: [
+      {
+        name: 'Home',
+        to: '/'
+      },
+      {
+        name: 'Login',
+        to: '/account/signin'
+      },
+      {
+        name: 'Register',
+        to: '/account/signup'
+      },
+      {
+        name: 'MissingAnimals',
+        to: '/missing-animals'
+      },
+      {
+        name: 'Share',
+        to: '/share'
+      },
+      {
+        name: 'Pets',
+        to: '/pets'
+      },
+      {
+        name: 'Recommend',
+        to: '/recommend'
+      }
+    ]
+  })
 }
 </script>
