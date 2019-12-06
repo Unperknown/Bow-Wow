@@ -1,13 +1,7 @@
 <template>
-  <v-app id="app">
-    <v-card color="grey lighten-4" flat height="50px" tile mb-0>
-      <v-toolbar dense flat>
-        <v-app-bar-nav-icon to="/">
-          <v-img src="@/assets/logo(2).png" width="30px"></v-img>
-        </v-app-bar-nav-icon>
-      </v-toolbar>
-    </v-card>
-    <v-comtainer>
+  <v-app>
+    <ToolBar></ToolBar>
+    <v-container>
       <router-view></router-view>
       <v-row align="center" justify="center">
         <v-col xs="12" sm="7" md="6" lg="5" xl2="2">
@@ -29,36 +23,23 @@
               </div>
             </v-card-text>
           </v-card>
-          <v-bottom-navigation fixed="true" :value="activeBtn" grow color="pink lighten-1">
-            <v-btn to="/missing-animals">
-              <span>실종</span>
-              <v-icon>scatter_plot</v-icon>
-            </v-btn>
-
-            <v-btn to="/share">
-              <span>SNS</span>
-              <v-icon>mode_comment</v-icon>
-            </v-btn>
-
-            <v-btn to="/pets">
-              <span>동물관리</span>
-              <v-icon>healing</v-icon>
-            </v-btn>
-
-            <v-btn to="/recommend">
-              <span>추천</span>
-              <v-icon>thumb_up_alt</v-icon>
-            </v-btn>
-          </v-bottom-navigation>
         </v-col>
       </v-row>
-    </v-comtainer>
+    </v-container>
+    <BottomNav></BottomNav>
   </v-app>
 </template>
 
 <script>
+import ToolBar from './components/ToolBar'
+import BottomNav from './components/BottomNav'
+
 export default {
   name: 'Home',
+  components: {
+    ToolBar,
+    BottomNav
+  },
   data: () => ({
     links: [
       {
