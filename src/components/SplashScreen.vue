@@ -21,6 +21,6 @@
 
 <script>
 export default {
-  name: 'App'
+  name: 'SplashScreen'
 }
 </script>
