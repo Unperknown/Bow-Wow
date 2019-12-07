@@ -2,8 +2,11 @@ var express = require('express');
 var router = express.Router();
 
 /* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
+
+router.post('api/user.json', (req, res, next) => {
+  console.log(req.body);
+
+  next();
 });
 
 module.exports = router;

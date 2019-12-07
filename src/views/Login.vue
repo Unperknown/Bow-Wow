@@ -15,7 +15,7 @@
               </v-card-text>
               <v-card-actions>
                 <v-spacer />
-                <v-btn text large color="pink lighten-1">Login</v-btn>
+                <v-btn v-on:click="getPosts()" text large color="pink lighten-1">Login</v-btn>
                 <v-btn to="/account/signup" text large color="pink lighten-1">Sign Up</v-btn>
               </v-card-actions>
             </v-card>
@@ -27,26 +27,53 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
   name: 'Login',
   props: {
     source: String
   },
-  data: () => ({
-    links: [
-      {
-        name: 'Home',
-        to: '/'
-      },
-      {
-        name: 'Login',
-        to: '/account/signin'
-      },
-      {
-        name: 'Register',
-        to: '/account/signup'
-      }
-    ]
-  })
+  links: [
+    {
+      name: 'Home',
+      to: '/'
+    },
+    {
+      name: 'Login',
+      to: '/account/signin'
+    },
+    {
+      name: 'Register',
+      to: '/account/signup'
+    }
+  ],
+  data () {
+    return {
+      email: '',
+      password: ''
+    }
+  },
+  methods: {
+    getPosts () {
+      return axios
+        .post(
+          'http://localhost:3000/api/user.json',
+          { email: this.email, password: this.password },
+          {
+            headers: {
+              'Content-type': 'application/json'
+            }
+          }
+        )
+        .then(response => {
+          console.log('email: ' + this.email)
+          console.log('password: ' + this.password)
+        })
+        .catch(error => {
+          console.log('error: ' + error)
+        })
+    }
+  }
 }
 </script>
