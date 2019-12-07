@@ -159,7 +159,7 @@
 
 <script>
 export default {
-  name: 'App',
+  name: 'Alarm',
   data () {
     return {
       bottomNav: 'recent',

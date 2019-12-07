@@ -87,7 +87,7 @@
 
 <script>
 export default {
-  name: 'Clinic.vue',
+  name: 'Clinic',
   data () {
     return {
       bottomNav: 'recent',
