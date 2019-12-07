@@ -46,6 +46,9 @@
       <v-btn text  @click="dialogTime = !dialogTime">Time</v-btn>
     </v-card-actions>
   </v-card>
+  <v-card-action align="center">
+    <v-btn text large color="pink lighten-1">진료예약</v-btn>
+  </v-card-action>
   <v-dialog v-model="dialogDate" max-width="300px">
     <v-date-picker v-model="pickerDate" color="pink lighten-1"></v-date-picker>
     <v-btn color="pink lighten-1" @click="dialogDate = false">Submit</v-btn>
@@ -84,7 +87,7 @@
 
 <script>
 export default {
-  name: 'Clinic',
+  name: 'Clinic.vue',
   data () {
     return {
       bottomNav: 'recent',
