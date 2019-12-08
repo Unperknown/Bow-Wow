@@ -42,25 +42,25 @@ const routes = [
   {
     path: '/missing-animals',
     name: 'MissingAnimals',
-    component: () => import('../views/Share.vue'),
+    component: () => import('../views/components/Share.vue'),
     beforeEnter: ifAuthenticated
   },
   {
     path: '/share',
     name: 'Share',
-    component: () => import('../views/Share.vue'),
+    component: () => import('../views/components/Share.vue'),
     beforeEnter: ifAuthenticated
   },
   {
     path: '/pets',
     name: 'Pets',
-    component: () => import('../views/Share.vue'),
+    component: () => import('../views/components/PetCare.vue'),
     beforeEnter: ifAuthenticated
   },
   {
     path: '/recommend',
     name: 'Recommend',
-    component: () => import('../views/Share.vue'),
+    component: () => import('../views/components/Share.vue'),
     beforeEnter: ifAuthenticated
   }
 ]

@@ -25,6 +25,10 @@ if (process.env.NODE_ENV === 'production') {
       worker.postMessage({
         action: 'skipWaiting'
       })
+
+      setTimeout(() => {
+        window.location.reload(true)
+      }, 1000)
     },
     offline () {
       console.log('No internet connection found. App is running in offline mode.')

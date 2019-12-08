@@ -2,6 +2,8 @@ import { AUTH_REQUEST, AUTH_ERROR, AUTH_SUCCESS, AUTH_LOGOUT } from '../action/a
 import { USER_REQUEST } from '../action/user'
 import apiCall from '../../utils/api'
 
+// var isAuthenticated = false
+
 const state = {
   token: localStorage.getItem('user-token') || '',
   status: '',
@@ -9,7 +11,11 @@ const state = {
 }
 
 const getters = {
-  isAuthenticated: state => !!state.token,
+  isAuthenticated: state => {
+    // isAuthenticated = !!state.token
+
+    return false
+  },
   authStatus: state => state.status
 }
 
