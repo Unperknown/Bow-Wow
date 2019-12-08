@@ -24,7 +24,7 @@ const routes = [
   {
     path: '/',
     name: 'Home',
-    component: () => import('../Main.vue'),
+    component: () => import('../views/Home.vue'),
     beforeEnter: ifAuthenticated
   },
   {

@@ -1,22 +1,26 @@
 <template>
   <v-app>
-    <SplashScreen :isLoading="isLoading"></SplashScreen>
-    <router-view v-if="!isLoading"></router-view>
+    <router-view></router-view>
   </v-app>
 </template>
 
 <script>
-import SplashScreen from '@/views/components/SplashScreen'
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/service-worker.js').then(registration => {
+      console.log('SW registered: ', registration)
+    }).catch(registrationError => {
+      console.log('SW registration failed: ', registrationError)
+    })
+  })
+}
 
 export default {
   name: 'Main',
-  components: {
-    SplashScreen
-  },
   links: [
     {
       name: 'Home',
-      to: '/'
+      to: '/home'
     },
     {
       name: 'Login',
@@ -42,14 +46,6 @@ export default {
       name: 'Recommend',
       to: '/recommend'
     }
-  ],
-  data () {
-    return { isLoading: true }
-  },
-  mounted () {
-    setTimeout(() => {
-      this.isLoading = false
-    }, 3000)
-  }
+  ]
 }
 </script>
