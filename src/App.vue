@@ -1,178 +1,116 @@
 <template>
 <v-app id="app">
-  <v-container
-    flat class="fill-height"
-    fluid>
-    <v-row
-      align="center"
-      justify="center">
-      <v-col
-        xs="12"
-            sm="6"
-            md="4"
-            lg="3"
-            xl2="2"
-        >
-         <v-card
+  <v-card
+    color="grey lighten-4"
+    flat
+    height="50px"
+    tile
+    mb-0
+  >
+    <v-toolbar dense flat>
+      <v-app-bar-nav-icon>
+        <v-img src="@/assets/logo(2).png" width="30px">
+        </v-img>
+      </v-app-bar-nav-icon>
+      <v-toolbar-title>Bow-Wow</v-toolbar-title>
+      <v-row justify="end">
+        <v-app-bar-nav-icon></v-app-bar-nav-icon>
+      </v-row>
+    </v-toolbar>
+  </v-card>
+  <v-card
     flat class="mx-auto"
     max-width="500"
   >
-  <v-img src="@/assets/logo.png" class="mx-auto" aspect-ratio="1" width="70%">
-            </v-img>
-    <v-card-title class="title font-weight-regular justify-space-between">
-      <span>{{ currentTitle }}</span>
-      <v-avatar
-        color="pink lighten-1"
-        class="subheading white--text"
-        size="24"
-        v-text="step"
-      ></v-avatar>
-    </v-card-title>
+    <v-list-item-group>
+      <v-list-item>
+        <v-list-item-content>
+        <div class="overline mb-4">병원 정보</div>
+        <v-list-item-title class="headline mb-1">Bow-wow 동물병원</v-list-item-title>
+        <v-list-item-subtitle>상세설명</v-list-item-subtitle>
+        </v-list-item-content>
+        <v-list-item-avatar
+        size="80"
+        color="grey"
+      >
+      <v-img src="@/assets/logo(2).png">
+      </v-img>
+      </v-list-item-avatar>
+      </v-list-item>
 
-    <v-window v-model="step">
-      <v-window-item :value="1">
-        <v-card-text>
-          <v-text-field
-            v-model="id"
-            :counter="10"
-            :rules="nameRules"
-            label="Id"
-          ></v-text-field>
-          <span class="caption grey--text text--darken-1">
-            Enter Id use for Bow-Wow
-          </span>
-          <v-text-field
-            v-model="Pname"
-            :counter="10"
-            :rules="nameRules"
-            label="name"
-          ></v-text-field>
-          <span class="caption grey--text text--darken-1">
-            Enter Name use for Bow-Wow
-          </span>
-        </v-card-text>
-      </v-window-item>
+      <v-list-item>
+        <v-list-item-content>
+        <v-list-item-title class="caption">주소</v-list-item-title>
+        <v-list-item-subtitle class="caption grey--text">광주 광산구 상무대로 312</v-list-item-subtitle>
+      </v-list-item-content>
+      </v-list-item>
 
-      <v-window-item :value="2">
-        <v-card-text>
-          <v-text-field
-            v-model="password"
-            :counter="10"
-            :rules="nameRules"
-            label="Password"
-            type="password"
-          ></v-text-field>
-          <v-text-field
-            v-model="password2"
-            :counter="10"
-            :rules="nameRules"
-            label="Confirm Password"
-            type="password"
-          ></v-text-field>
-          <span class="caption grey--text text--darken-1">
-            Please enter a password for your account
-          </span>
-        </v-card-text>
-      </v-window-item>
+      <v-list-item>
+        <v-list-item-content>
+        <v-list-item-title class="caption">전화번호</v-list-item-title>
+        <v-list-item-subtitle class="caption grey--text">062-949-6800</v-list-item-subtitle>
+      </v-list-item-content>
+      </v-list-item>
 
-      <v-window-item :value="3">
-        <div class="pa-4 text-center">
-          <v-text-field
-        v-model="name"
-        :counter="10"
-        :rules="nameRules"
-        label="Name"
-        required
-      ></v-text-field>
-          <v-slider
-                    v-model="slider"
-                    min="0"
-                    max="30"
-                    label="Age"
-                      thumb-label
-                ></v-slider>
-          <v-slider
-                    v-model="slider"
-                    min="0"
-                    max="50"
-                    label="Weight"
-                    thumb-label
-                ></v-slider>
-                 <v-file-input label="Upload profile picture"></v-file-input>
-        </div>
-      </v-window-item>
-
-      <v-window-item :value="4">
-        <div class="pa-4 text-center">
-          <h3 class="title font-weight-light mb-2">Welcome to Bow-Wow</h3>
-          <span class="caption grey--text">Thanks for signing up!</span>
-          <v-btn text large color="pink lighten-1">Go Login</v-btn>
-        </div>
-      </v-window-item>
-    </v-window>
-
-    <v-divider></v-divider>
-
+    </v-list-item-group>
     <v-card-actions>
-      <v-btn
-        :disabled="step === 1"
-        text large color="pink lighten-1"
-        @click="step--"
-      >
-        Back
-      </v-btn>
-      <v-spacer></v-spacer>
-      <v-btn
-        :disabled="step === 4"
-        text large color="pink lighten-1"
-        depressed
-        @click="step++"
-      >
-        Next
-      </v-btn>
+      <v-btn text @click="dialogDate = !dialogDate">Date</v-btn>
+      <v-btn text  @click="dialogTime = !dialogTime">Time</v-btn>
     </v-card-actions>
   </v-card>
-      </v-col>
-    </v-row>
-  </v-container>
-  <v-footer>
-    <v-spacer></v-spacer>
-    <div>&copy; {{ new Date().getFullYear() }}</div>
-  </v-footer>
-</v-app>
+  <v-card-actions align="center">
+    <v-btn text large color="pink lighten-1">진료예약</v-btn>
+  </v-card-actions>
+  <v-dialog v-model="dialogDate" max-width="300px">
+    <v-date-picker v-model="pickerDate" color="pink lighten-1"></v-date-picker>
+    <v-btn color="pink lighten-1" @click="dialogDate = false">Submit</v-btn>
+  </v-dialog>
+  <v-dialog v-model="dialogTime" max-width="300px">
+    <v-time-picker v-model="pickerTime" ampm-in-title color="pink lighten-1"></v-time-picker>
+    <v-btn color="pink lighten-1" @click="dialogTime = false">Submit</v-btn>
+  </v-dialog>
+  <v-bottom-navigation fixed="true"
+      :value="activeBtn"
+      grow
+      color="pink lighten-1"
+       >
+        <v-btn>
+          <span>실종</span>
+          <v-icon>scatter_plot</v-icon>
+        </v-btn>
+
+        <v-btn>
+          <span>SNS</span>
+          <v-icon>mode_comment</v-icon>
+        </v-btn>
+        <v-btn>
+          <span>동물관리</span>
+          <v-icon>healing</v-icon>
+        </v-btn>
+
+          <v-btn>
+            <span>추천</span>
+            <v-icon>thumb_up_alt</v-icon>
+          </v-btn>
+
+        </v-bottom-navigation>
+  </v-app>
 </template>
 
 <script>
 export default {
   name: 'App',
-  data: () => ({
-    valid: false,
+  data () {
+    return {
+      bottomNav: 'recent',
 
-    id: '',
+      dialogDate: false,
 
-    password: '',
+      dialogTime: false,
 
-    password2: '',
+      pickerDate: new Date().toISOString().substr(0, 10),
 
-    name: '',
-
-    pname: '',
-
-    nameRules: [
-      v => !!v || '필수 항목 입니다.',
-      v => v.length <= 10 || '10자리 이내로 입력해주세요.'
-    ],
-
-    step: 1
-  }),
-  computed: {
-    currentTitle () {
-      switch (this.step) {
-        case 1: return 'Sign-up'
-        case 2: return 'Create a password'
-        case 3: return 'About pets'
-        default: return 'Account created'
-      }
+      pickerTime: null
     }
   }
 }
