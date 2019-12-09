@@ -14,7 +14,11 @@
       </v-app-bar-nav-icon>
       <v-toolbar-title>Bow-Wow</v-toolbar-title>
       <v-row justify="end">
-        <v-app-bar-nav-icon></v-app-bar-nav-icon>
+        <v-btn color="grey"
+    icon>
+    <v-img src="@/assets/logout.png">
+    </v-img>
+  </v-btn>
       </v-row>
     </v-toolbar>
   </v-card>
