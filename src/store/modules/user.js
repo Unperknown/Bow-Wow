@@ -1,5 +1,4 @@
 import { USER_REQUEST, USER_ERROR, USER_SUCCESS } from '../action/user'
-import apiCall from '../../utils/api'
 import Vue from 'vue'
 import { AUTH_LOGOUT } from '../action/auth'
 
@@ -13,7 +12,7 @@ const getters = {
 const actions = {
   [USER_REQUEST]: ({ commit, dispatch }) => {
     commit(USER_REQUEST)
-    apiCall({ url: 'user/me' })
+    /* apiCall({ url: 'user/me' })
       .then(resp => {
         commit(USER_SUCCESS, resp)
       })
@@ -21,7 +20,7 @@ const actions = {
         commit(USER_ERROR)
         // if resp is unauthorized, logout, to
         dispatch(AUTH_LOGOUT)
-      })
+      }) */
   }
 }
 

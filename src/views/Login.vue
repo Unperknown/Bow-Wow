@@ -4,17 +4,17 @@
       <v-col xs="12" sm="6" md="4" lg="3" xl2="2">
         <v-card flat class="mx-auto">
           <v-img src="@/assets/logo.png" class="mx-auto" aspect-ratio="1" width="70%"></v-img>
-          <v-card-text>
-            <v-form>
-              <v-text-field label="ID" name="id" type="text" />
-              <v-text-field id="password" label="Password" name="password" type="password" />
-            </v-form>
-          </v-card-text>
-          <v-card-actions>
-            <v-spacer />
-            <v-btn to="/" v-on:click="getPosts()" text large color="pink lighten-1">Login</v-btn>
-            <v-btn to="/account/signup" text large color="pink lighten-1">Sign Up</v-btn>
-          </v-card-actions>
+          <v-form class="login" @submit.prevent="login">
+            <v-card-text>
+              <v-text-field required v-model="ID" label="ID" name="id" type="text" />
+              <v-text-field required v-model="password" id="password" label="Password" name="password" type="password" />
+            </v-card-text>
+            <v-card-actions>
+              <v-spacer />
+              <v-btn to="/" v-on:click="login()" type="submit" text large color="pink lighten-1">Login</v-btn>
+              <v-btn to="/account/signup" text large color="pink lighten-1">Sign Up</v-btn>
+            </v-card-actions>
+          </v-form>
         </v-card>
       </v-col>
     </v-row>
@@ -43,29 +43,18 @@ export default {
   ],
   data () {
     return {
-      email: '',
+      ID: '',
       password: ''
     }
   },
   methods: {
-    getPosts () {
-      /* return axios
-        .post(
-          'http://localhost:3000/api/user.json',
-          { email: this.email, password: this.password },
-          {
-            headers: {
-              'Content-type': 'application/json'
-            }
-          }
-        )
-        .then(response => {
-          console.log('email: ' + this.email)
-          console.log('password: ' + this.password)
-        })
-        .catch(error => {
-          console.log('error: ' + error)
-        }) */
+    login () {
+      let ID = this.ID
+      let password = this.password
+      this.$store
+        .dispatch('AUTH_REQUEST', { user: { ID: ID, password: password } })
+        .then(resp => resp)
+        .catch(err => console.log(err))
     }
   }
 }

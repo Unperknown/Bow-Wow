@@ -58,6 +58,18 @@ const routes = [
     beforeEnter: ifAuthenticated
   },
   {
+    path: '/pets/alarm',
+    name: 'Alarm',
+    component: () => import('../views/components/Alarm.vue'),
+    beforeEnter: ifAuthenticated
+  },
+  {
+    path: '/pets/clinic',
+    name: 'Clinic',
+    component: () => import('../views/components/Clinic.vue'),
+    beforeEnter: ifAuthenticated
+  },
+  {
     path: '/recommend',
     name: 'Recommend',
     component: () => import('../views/components/Share.vue'),

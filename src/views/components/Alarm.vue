@@ -85,7 +85,7 @@
 <script>
 export default {
   name: 'Alarm',
-  data() {
+  data () {
     return {
       dialogTime: false,
       pickerTime: null

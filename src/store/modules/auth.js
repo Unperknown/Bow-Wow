@@ -1,41 +1,37 @@
 import { AUTH_REQUEST, AUTH_ERROR, AUTH_SUCCESS, AUTH_LOGOUT } from '../action/auth'
-import { USER_REQUEST } from '../action/user'
-import apiCall from '../../utils/api'
+import axios from 'axios'
 
-// var isAuthenticated = false
+axios.defaults.baseURL = 'http://localhost:3000'
+axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*'
+axios.defaults.headers.common['Access-Control-Allow-Headers'] = 'Authorization, Content-Type'
 
 const state = {
-  token: localStorage.getItem('user-token') || '',
+  token: localStorage.getItem('token') || '',
   status: '',
   hasLoadedOnce: false
 }
 
 const getters = {
-  isAuthenticated: state => {
-    // isAuthenticated = !!state.token
-
-    return false
-  },
-  authStatus: state => state.status
+  isAuthenticated: () => !!state.token,
+  authStatus: () => state.status
 }
 
 const actions = {
-  [AUTH_REQUEST]: ({ commit, dispatch }, user) => {
+  [AUTH_REQUEST]: ({ commit }, user) => {
     return new Promise((resolve, reject) => {
       commit(AUTH_REQUEST)
-      apiCall({ url: 'auth', data: user, method: 'POST' })
+      axios.post('/api/login', user)
         .then(resp => {
-          localStorage.setItem('user-token', resp.token)
-          // Here set the header of your ajax library to the token value.
-          // example with axios
-          // axios.defaults.headers.common['Authorization'] = resp.token
-          commit(AUTH_SUCCESS, resp)
-          dispatch(USER_REQUEST)
+          const token = resp.token
+          const user = resp.user
+          localStorage.setItem('token', token)
+          axios.defaults.headers.common['Authorization'] = token
+          commit(AUTH_SUCCESS, { token, user })
           resolve(resp)
         })
         .catch(err => {
-          commit(AUTH_ERROR, err)
-          localStorage.removeItem('user-token')
+          commit(AUTH_ERROR)
+          localStorage.removeItem('token')
           reject(err)
         })
     })
@@ -43,7 +39,7 @@ const actions = {
   [AUTH_LOGOUT]: ({ commit, dispatch }) => {
     return new Promise((resolve, reject) => {
       commit(AUTH_LOGOUT)
-      localStorage.removeItem('user-token')
+      localStorage.removeItem('token')
       resolve()
     })
   }

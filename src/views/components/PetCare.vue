@@ -13,7 +13,7 @@
       </v-col>
       <v-col>
         <v-hover v-slot:default="{ hover }">
-          <v-card class="pa-2 mx-auto" :elevation="hover ? 12 : 2" height="200" max-width="200">
+          <v-card to="/pets/clinic" class="pa-2 mx-auto" :elevation="hover ? 12 : 2" height="200" max-width="200">
             <v-row justify="center">
               <v-icon x-large light>date_range</v-icon>
             </v-row>
@@ -23,7 +23,7 @@
       </v-col>
       <v-col order="last">
         <v-hover v-slot:default="{ hover }">
-          <v-card class="pa-2 mx-auto" :elevation="hover ? 12 : 2" height="200" max-width="200">
+          <v-card to="/pets/alarm" class="pa-2 mx-auto" :elevation="hover ? 12 : 2" height="200" max-width="200">
             <v-row justify="center">
               <v-icon x-large light>access_alarms</v-icon>
             </v-row>
@@ -42,6 +42,20 @@ export default {
     return {
       bottomNav: 'recent'
     }
-  }
+  },
+  links: [
+    {
+      name: 'Alarm',
+      to: '/pets/alarm'
+    },
+    {
+      name: 'Clinic',
+      to: '/pets/clinic'
+    },
+    {
+      name: 'Clinic',
+      to: '/pets/clinic'
+    }
+  ]
 }
 </script>
