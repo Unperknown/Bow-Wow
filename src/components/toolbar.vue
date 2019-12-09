@@ -14,7 +14,7 @@
       </v-app-bar-nav-icon>
       <v-toolbar-title>Bow-Wow</v-toolbar-title>
       <v-row align="center" justify="end">
-      <span class="caption">OOO님, 환영합니다.</span>
+      <span class="caption mr-2">OOO님, 환영합니다.</span>
       <v-avatar>
          <img src="https://randomuser.me/api/portraits/women/81.jpg">
       </v-avatar>
