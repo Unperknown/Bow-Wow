@@ -16,7 +16,8 @@ import 'material-design-icons-iconfont/dist/material-design-icons.css'
 Vue.config.productionTip = false
 Vue.prototype.$http = axios
 
-const token = localStorage.getItem('user-token')
+const token = localStorage.getItem('token')
+
 if (token) {
   axios.defaults.headers.common['Authorization'] = token
 }

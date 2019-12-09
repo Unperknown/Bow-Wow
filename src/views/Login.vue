@@ -22,6 +22,9 @@
 </template>
 
 <script>
+import Store from '@/store'
+import Router from '@/router'
+
 export default {
   name: 'Login',
   props: {
@@ -51,9 +54,11 @@ export default {
     login () {
       let ID = this.ID
       let password = this.password
-      this.$store
+      Store
         .dispatch('AUTH_REQUEST', { user: { ID: ID, password: password } })
-        .then(resp => resp)
+        .then(token => {
+          Router.push(`/?=accessToken=${token}`)
+        })
         .catch(err => console.log(err))
     }
   }

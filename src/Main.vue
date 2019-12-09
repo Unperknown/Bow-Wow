@@ -9,7 +9,7 @@
 <script>
 import ToolBar from '@/views/components/ToolBar'
 import BottomNav from '@/views/components/BottomNav'
-import Auth from '@/store/modules/auth'
+import Authentication from '@/store/modules/auth'
 
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
@@ -43,7 +43,7 @@ export default {
   ],
   methods: {
     isAuthenticated: () => {
-      return Auth.getters.isAuthenticated()
+      return Authentication.getters.isAuthenticated()
     }
   }
 }

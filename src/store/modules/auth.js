@@ -20,14 +20,14 @@ const actions = {
   [AUTH_REQUEST]: ({ commit }, user) => {
     return new Promise((resolve, reject) => {
       commit(AUTH_REQUEST)
-      axios.post('/api/login', user)
+      axios.post('/api/get_token', user)
         .then(resp => {
-          const token = resp.token
-          const user = resp.user
+          const token = resp.data.token
+          const user = resp.data.user
           localStorage.setItem('token', token)
           axios.defaults.headers.common['Authorization'] = token
           commit(AUTH_SUCCESS, { token, user })
-          resolve(resp)
+          resolve(token)
         })
         .catch(err => {
           commit(AUTH_ERROR)
