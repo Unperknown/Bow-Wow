@@ -56,11 +56,10 @@
     <v-card-actions>
       <v-btn text @click="dialogDate = !dialogDate">Date</v-btn>
       <v-btn text  @click="dialogTime = !dialogTime">Time</v-btn>
+      <v-spacer></v-spacer>
+      <v-btn text large color="pink lighten-1">진료예약</v-btn>
     </v-card-actions>
   </v-card>
-  <v-card-actions align="center">
-    <v-btn text large color="pink lighten-1">진료예약</v-btn>
-  </v-card-actions>
   <v-dialog v-model="dialogDate" max-width="300px">
     <v-date-picker v-model="pickerDate" color="pink lighten-1"></v-date-picker>
     <v-btn color="pink lighten-1" @click="dialogDate = false">Submit</v-btn>
