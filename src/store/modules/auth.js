@@ -1,10 +1,6 @@
 import { AUTH_REQUEST, AUTH_ERROR, AUTH_SUCCESS, AUTH_LOGOUT } from '../action/auth'
 import axios from 'axios'
 
-axios.defaults.baseURL = 'http://localhost:3000'
-axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*'
-axios.defaults.headers.common['Access-Control-Allow-Headers'] = 'Authorization, Content-Type'
-
 const state = {
   token: localStorage.getItem('token') || '',
   status: '',
@@ -16,11 +12,23 @@ const getters = {
   authStatus: () => state.status
 }
 
+const tokenGetter = (user) => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      try {
+        resolve(axios.post('/api/get_token', user))
+      } catch (err) {
+        reject(new Error(err))
+      }
+    }, 1000)
+  })
+}
+
 const actions = {
   [AUTH_REQUEST]: ({ commit }, user) => {
     return new Promise((resolve, reject) => {
       commit(AUTH_REQUEST)
-      axios.post('/api/get_token', user)
+      tokenGetter(user)
         .then(resp => {
           const token = resp.data.token
           const user = resp.data.user

@@ -2,6 +2,13 @@ module.exports = {
   'transpileDependencies': [
     'vuetify'
   ],
+  devServer: {
+    proxy: {
+      '/api/*': {
+        target: "http://localhost:3000"
+      }
+    }
+  },
   pwa: {
     name: '바우와우',
     themeColor: '#FFFFFF',
@@ -9,7 +16,7 @@ module.exports = {
     appleMobileWebAppCapable: 'yes',
     appleMobileWebAppStatusBarStyle: 'black',
     manifestOptions: {
-      background_color: '#FDF8F8',
+      background_color: '#FFFFFF',
       short_name: '바우와우'
     },
     workboxPluginMode: 'InjectManifest',

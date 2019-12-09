@@ -11,7 +11,7 @@
             </v-card-text>
             <v-card-actions>
               <v-spacer />
-              <v-btn to="/" v-on:click="login()" type="submit" text large color="pink lighten-1">Login</v-btn>
+              <v-btn v-on:click="login()" type="submit" text large color="pink lighten-1">Login</v-btn>
               <v-btn to="/account/signup" text large color="pink lighten-1">Sign Up</v-btn>
             </v-card-actions>
           </v-form>
@@ -56,9 +56,7 @@ export default {
       let password = this.password
       Store
         .dispatch('AUTH_REQUEST', { user: { ID: ID, password: password } })
-        .then(token => {
-          Router.push(`/?=accessToken=${token}`)
-        })
+        .then(token => Router.go('/'))
         .catch(err => console.log(err))
     }
   }
