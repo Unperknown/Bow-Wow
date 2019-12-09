@@ -41,6 +41,15 @@
           <span class="caption grey--text text--darken-1">
             Enter Id use for Bow-Wow
           </span>
+          <v-text-field
+            v-model="Pname"
+            :counter="10"
+            :rules="nameRules"
+            label="name"
+          ></v-text-field>
+          <span class="caption grey--text text--darken-1">
+            Enter Name use for Bow-Wow
+          </span>
         </v-card-text>
       </v-window-item>
 
@@ -146,6 +155,8 @@ export default {
     password2: '',
 
     name: '',
+
+    pname: '',
 
     nameRules: [
       v => !!v || '필수 항목 입니다.',
