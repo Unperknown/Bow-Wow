@@ -19,6 +19,13 @@
     </v-toolbar>
   </v-card>
 <v-comtainer>
+  <v-row align="start" justify="end">
+    <v-btn  class="mx-2" fab dark large color="pink" icon>
+    <v-icon>
+    add_circle
+  </v-icon>
+  </v-btn>
+  </v-row>
   <v-row
     align="center"
     justify="center">
@@ -29,28 +36,38 @@
       lg="5"
       xl2="2"
     >
-      <v-file-input
-      multiple
-    accept="image/png, image/jpeg, image/bmp"
-    placeholder="Put up a picture of your pet."
-    prepend-icon="camera"
-    label="Picture"
-  ></v-file-input>
       <v-card
-        flat class="mx-auto">
-        <v-card-text>
-      <div>Writing</div>
-      <v-textarea
-          flat
-          solo
-          name="input-7-4"
-          label="text"
-        ></v-textarea>
-        <v-row justify="end">
-          <v-btn text large color="pink lighten-1">Submit</v-btn>
-        </v-row>
+    flat class="mx-auto"
+  >
+    <v-list-item>
+      <v-list-item-avatar color="white">
+        <v-icon icon>
+          account_circle
+        </v-icon>
+      </v-list-item-avatar>
+      <v-list-item-content>
+        <v-list-item-title class="headline">My Pet</v-list-item-title>
+        <v-list-item-subtitle>by Bow-Wow</v-list-item-subtitle>
+      </v-list-item-content>
+    </v-list-item>
+
+    <v-carousel hide-delimiters>
+    <v-carousel-item
+      v-for="(item,i) in items"
+      :key="i"
+      :src="item.src"
+    ></v-carousel-item>
+  </v-carousel>
+    <v-btn icon v-on:click="counter += 1"
+      color="pink lighten-1">
+        <v-icon>favorite</v-icon>
+      </v-btn>
+      <spen class="caption">{{counter}}</spen>
+      <v-divider></v-divider>
+    <v-card-text>
+     Bow-Wow SNS
     </v-card-text>
-      </v-card>
+  </v-card>
       <v-bottom-navigation fixed="true"
       :value="activeBtn"
       grow
@@ -65,11 +82,11 @@
           <span>SNS</span>
           <v-icon>mode_comment</v-icon>
         </v-btn>
-        <v-btn>
-          <span>동물관리</span>
-          <v-icon>healing</v-icon>
-        </v-btn>
 
+        <v-btn>
+          <span>홈</span>
+          <v-icon>home</v-icon>
+        </v-btn>
           <v-btn>
             <span>추천</span>
             <v-icon>thumb_up_alt</v-icon>
@@ -84,10 +101,22 @@
 
 <script>
 export default {
-  name: 'Writing',
+  name: 'App',
   data () {
     return {
-      bottomNav: 'recent'
+      bottomNav: 'recent',
+
+      counter: 0,
+
+      items: [
+        {
+          src: 'https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg'
+        },
+
+        {
+          src: 'https://cdn.vuetifyjs.com/images/carousel/sky.jpg'
+        }
+      ]
     }
   }
 }

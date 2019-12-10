@@ -58,9 +58,11 @@
       :src="item.src"
     ></v-carousel-item>
   </v-carousel>
-    <v-btn icon>
+    <v-btn icon v-on:click="counter += 1"
+      color="pink lighten-1">
         <v-icon>favorite</v-icon>
       </v-btn>
+      <spen class="caption">{{counter}}</spen>
       <v-divider></v-divider>
     <v-card-text>
      Bow-Wow SNS
@@ -85,7 +87,6 @@
           <span>홈</span>
           <v-icon>home</v-icon>
         </v-btn>
-        
           <v-btn>
             <span>추천</span>
             <v-icon>thumb_up_alt</v-icon>
@@ -100,10 +101,12 @@
 
 <script>
 export default {
-  name: 'SocialNetwork',
+  name: 'Clinic',
   data () {
     return {
       bottomNav: 'recent',
+
+      counter: 0,
 
       items: [
         {
