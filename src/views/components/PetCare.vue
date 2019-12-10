@@ -3,16 +3,6 @@
     <v-row mt-5>
       <v-col order="first">
         <v-hover v-slot:default="{ hover }">
-          <v-card class="pa-2 mx-auto" :elevation="hover ? 12 : 2" height="200" max-width="200">
-            <v-row justify="center">
-              <v-icon x-large light>apartment</v-icon>
-            </v-row>
-            <v-card-text class="my-4 text-center title">병원찾기</v-card-text>
-          </v-card>
-        </v-hover>
-      </v-col>
-      <v-col>
-        <v-hover v-slot:default="{ hover }">
           <v-card to="/pets/clinic" class="pa-2 mx-auto" :elevation="hover ? 12 : 2" height="200" max-width="200">
             <v-row justify="center">
               <v-icon x-large light>date_range</v-icon>

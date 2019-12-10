@@ -1,22 +1,28 @@
 import { AUTH_REQUEST, AUTH_ERROR, AUTH_SUCCESS, AUTH_LOGOUT } from '../action/auth'
 import axios from 'axios'
 
+axios.defaults.baseURL = 'http://localhost:3000'
+axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*'
+axios.defaults.headers.common['Access-Control-Allow-Headers'] = 'Authorization, Content-Type'
+
 const state = {
   token: localStorage.getItem('token') || '',
   status: '',
-  hasLoadedOnce: false
+  hasLoadedOnce: false,
+  user: localStorage.getItem('user') || ''
 }
 
 const getters = {
   isAuthenticated: () => !!state.token,
-  authStatus: () => state.status
+  authStatus: () => state.status,
+  getCurrentUser: () => state.user
 }
 
 const tokenGetter = (user) => {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       try {
-        resolve(axios.post('/api/get_token', user))
+        resolve(axios.post('/api/token/get', user))
       } catch (err) {
         reject(new Error(err))
       }
@@ -33,6 +39,7 @@ const actions = {
           const token = resp.data.token
           const user = resp.data.user
           localStorage.setItem('token', token)
+          localStorage.setItem('user', user)
           axios.defaults.headers.common['Authorization'] = token
           commit(AUTH_SUCCESS, { token, user })
           resolve(token)
@@ -40,6 +47,7 @@ const actions = {
         .catch(err => {
           commit(AUTH_ERROR)
           localStorage.removeItem('token')
+          localStorage.removeItem('user')
           reject(err)
         })
     })
@@ -60,6 +68,7 @@ const mutations = {
   [AUTH_SUCCESS]: (state, resp) => {
     state.status = 'success'
     state.token = resp.token
+    state.user = resp.user
     state.hasLoadedOnce = true
   },
   [AUTH_ERROR]: (state) => {

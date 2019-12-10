@@ -52,6 +52,12 @@ const routes = [
     beforeEnter: ifAuthenticated
   },
   {
+    path: '/share/write',
+    name: 'Write',
+    component: () => import('../views/components/Writing.vue'),
+    beforeEnter: ifAuthenticated
+  },
+  {
     path: '/pets',
     name: 'Pets',
     component: () => import('../views/components/PetCare.vue'),
