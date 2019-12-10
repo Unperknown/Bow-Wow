@@ -1,42 +1,85 @@
-import { USER_REQUEST, USER_ERROR, USER_SUCCESS } from '../action/user'
-import Vue from 'vue'
-import { AUTH_LOGOUT } from '../action/auth'
+import { USER_CREATE, USER_LOAD, USER_ERROR, USER_SUCCESS } from '../action/user'
+import axios from 'axios'
 
-const state = { status: '', profile: {} }
+const state = {
+  status: '',
+  user: {},
+  profile: {},
+  hasLoadedOnce: false
+}
 
 const getters = {
   getProfile: state => state.profile,
   isProfileLoaded: state => !!state.profile.name
 }
 
+const sendUserInfo = (user) => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      try {
+        resolve(axios.post('/api/user/add', user))
+      } catch (err) {
+        reject(new Error(err))
+      }
+    }, 1000)
+  })
+}
+
+const loadUserInfo = (token) => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      try {
+        resolve(axios.get(`/api/user/get?accessToken=${token}`))
+      } catch (err) {
+        reject(new Error(err))
+      }
+    }, 1000)
+  })
+}
+
 const actions = {
-  [USER_REQUEST]: ({ commit, dispatch }) => {
-    commit(USER_REQUEST)
-    /* apiCall({ url: 'user/me' })
-      .then(resp => {
-        commit(USER_SUCCESS, resp)
-      })
-      .catch(resp => {
-        commit(USER_ERROR)
-        // if resp is unauthorized, logout, to
-        dispatch(AUTH_LOGOUT)
-      }) */
+  [USER_CREATE]: ({ commit }, user) => {
+    return new Promise((resolve, reject) => {
+      commit(USER_CREATE)
+      sendUserInfo(user)
+        .then(resp => {
+          const user = resp.data.user
+          commit(USER_SUCCESS, { user })
+          resolve(user)
+        })
+        .catch(err => {
+          commit(USER_ERROR)
+          reject(err)
+        })
+    })
+  },
+  [USER_LOAD]: ({ commit }, token) => {
+    return new Promise((resolve, reject) => {
+      commit(USER_LOAD)
+      loadUserInfo(token)
+        .then(resp => {
+          const name = resp.data.user.name
+          resolve(name)
+        })
+        .catch(err => {
+          commit(USER_ERROR)
+          reject(err)
+        })
+    })
   }
 }
 
 const mutations = {
-  [USER_REQUEST]: (state) => {
+  [USER_CREATE]: (state) => {
     state.status = 'loading'
   },
   [USER_SUCCESS]: (state, resp) => {
     state.status = 'success'
-    Vue.set(state, 'profile', resp)
+    state.user = resp.user
+    state.hasLoadedOnce = true
   },
   [USER_ERROR]: (state) => {
     state.status = 'error'
-  },
-  [AUTH_LOGOUT]: (state) => {
-    state.profile = {}
   }
 }
 

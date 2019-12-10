@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-row align="start" justify="end">
-      <v-btn class="mx-2" fab dark large color="pink" icon>
+      <v-btn to="/share/write" class="mx-2" fab dark large color="pink" icon>
         <v-icon>add_circle</v-icon>
       </v-btn>
     </v-row>
@@ -35,6 +35,12 @@
 <script>
 export default {
   name: 'Share',
+  links: [
+    {
+      name: 'Write',
+      to: '/share/write'
+    }
+  ],
   data () {
     return {
       bottomNav: 'recent',

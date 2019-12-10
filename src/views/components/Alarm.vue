@@ -88,7 +88,9 @@ export default {
   data () {
     return {
       dialogTime: false,
-      pickerTime: null
+      pickerTime: null,
+
+      settings: []
     }
   }
 }
