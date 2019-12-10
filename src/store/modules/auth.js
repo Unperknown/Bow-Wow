@@ -15,7 +15,8 @@ const state = {
 const getters = {
   isAuthenticated: () => !!state.token,
   authStatus: () => state.status,
-  getCurrentUser: () => state.user
+  getCurrentUser: () => state.user,
+  getToken: () => state.token
 }
 
 const tokenGetter = (user) => {

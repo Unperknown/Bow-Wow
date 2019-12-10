@@ -11,8 +11,8 @@
             </v-card-text>
             <v-card-actions>
               <v-spacer />
-              <v-btn v-on:click="login()" type="submit" text large color="pink lighten-1">Login</v-btn>
-              <v-btn to="/account/signup" text large color="pink lighten-1">Sign Up</v-btn>
+              <v-btn v-on:click="login()" type="submit" text large color="pink lighten-1">로그인</v-btn>
+              <v-btn to="/account/signup" text large color="pink lighten-1">회원 가입</v-btn>
             </v-card-actions>
           </v-form>
         </v-card>
@@ -56,7 +56,7 @@ export default {
       let password = this.password
       Store
         .dispatch('AUTH_REQUEST', { user: { ID: ID, password: password } })
-        .then(token => Router.go('/'))
+        .then(token => Router.push('/'))
         .catch(err => console.log(err))
     }
   }

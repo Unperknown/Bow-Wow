@@ -1,4 +1,4 @@
-import { USER_CREATE, USER_LOAD, USER_ERROR, USER_SUCCESS } from '../action/user'
+import { SHARE_CREATE, SHARE_LOAD, SHARE_ERROR, SHARE_SUCCESS } from '../action/share'
 import axios from 'axios'
 
 axios.defaults.baseURL = 'http://localhost:3000'
@@ -6,22 +6,18 @@ axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*'
 axios.defaults.headers.common['Access-Control-Allow-Headers'] = 'Authorization, Content-Type'
 
 const state = {
-  status: '',
-  user: {},
-  profile: {},
-  hasLoadedOnce: false
+  status: ''
 }
 
 const getters = {
-  getProfile: state => state.profile,
-  isProfileLoaded: state => !!state.profile.name
+  getStatus: () => state.status
 }
 
-const sendUserInfo = (user) => {
+const addShare = (share) => {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       try {
-        resolve(axios.post('/api/user/add', user))
+        resolve(axios.post('/api/share/add', share))
       } catch (err) {
         reject(new Error(err))
       }
@@ -29,11 +25,11 @@ const sendUserInfo = (user) => {
   })
 }
 
-const loadUserInfo = (token) => {
+const loadShares = () => {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       try {
-        resolve(axios.get(`/api/user/get?accessToken=${token}`))
+        resolve(axios.get('/api/share/load'))
       } catch (err) {
         reject(new Error(err))
       }
@@ -42,31 +38,32 @@ const loadUserInfo = (token) => {
 }
 
 const actions = {
-  [USER_CREATE]: ({ commit }, user) => {
+  [SHARE_CREATE]: ({ commit }, share) => {
     return new Promise((resolve, reject) => {
-      commit(USER_CREATE)
-      sendUserInfo(user)
+      commit(SHARE_CREATE)
+      addShare(share)
         .then(resp => {
-          const user = resp.data.user
-          commit(USER_SUCCESS, { user })
-          resolve(user)
+          const share = resp.data.share
+          commit(SHARE_SUCCESS)
+          resolve(share)
         })
         .catch(err => {
-          commit(USER_ERROR)
+          commit(SHARE_ERROR)
           reject(err)
         })
     })
   },
-  [USER_LOAD]: ({ commit }, token) => {
+  [SHARE_LOAD]: ({ commit }) => {
     return new Promise((resolve, reject) => {
-      commit(USER_LOAD)
-      loadUserInfo(token)
+      commit(SHARE_LOAD)
+      loadShares()
         .then(resp => {
-          const user = resp.data.user
-          resolve(user)
+          const articles = resp.data.articles
+          commit(SHARE_SUCCESS)
+          resolve(articles)
         })
         .catch(err => {
-          commit(USER_ERROR)
+          commit(SHARE_ERROR)
           reject(err)
         })
     })
@@ -74,18 +71,16 @@ const actions = {
 }
 
 const mutations = {
-  [USER_CREATE]: (state) => {
+  [SHARE_CREATE]: (state) => {
     state.status = 'loading'
   },
-  [USER_SUCCESS]: (state, resp) => {
+  [SHARE_SUCCESS]: (state) => {
     state.status = 'success'
-    state.user = resp.user
-    state.hasLoadedOnce = true
   },
-  [USER_LOAD]: (state) => {
+  [SHARE_LOAD]: (state) => {
     state.status = 'loaded'
   },
-  [USER_ERROR]: (state) => {
+  [SHARE_ERROR]: (state) => {
     state.status = 'error'
   }
 }

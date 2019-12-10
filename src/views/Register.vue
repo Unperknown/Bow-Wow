@@ -146,7 +146,7 @@ export default {
 
       Store
         .dispatch('USER_CREATE', user)
-        .then(user => Router.go('/account/signin'))
+        .then(user => Router.push('/account/signin'))
         .catch(err => console.log(err))
     }
   }
