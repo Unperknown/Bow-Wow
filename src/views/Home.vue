@@ -9,11 +9,15 @@
               <v-row class="mb-4 ml-2" align="center">
                 <h2 class="headline font-weight-bold text-center">나의 반려동물</h2>
               </v-row>
-              <v-img src="@/assets/dog.png" width="30%" class="mx-auto"></v-img>
-              <div>
+              <v-img v-if="petImage !== undefined" v-bind:src="petImage" width="50%" class="mx-auto"></v-img>
+              <v-img v-else src="@/assets/dog.png" width="50%" class="mx-auto"></v-img>
+              <div v-if="isPetExists">
                 <h3 class="title font-weight-bold mt-3 text-center">{{ petName }}</h3>
                 <p class="text-center mt-2 mb-0" grey--text>{{ petAge }}살</p>
                 <p class="text-center" grey--text>{{ petWeight }}kg</p>
+              </div>
+              <div v-else>
+                <h3 class="title font-weight-bold mt-3 text-center">아직 반려동물이 없군요...🥺</h3>
               </div>
             </v-card-text>
           </v-card>
@@ -41,6 +45,9 @@ export default {
       .catch(err => console.log(err))
   },
   computed: {
+    isPetExists () {
+      return this.pet !== {}
+    },
     petName () {
       return this.pet.name
     },
@@ -49,6 +56,9 @@ export default {
     },
     petWeight () {
       return this.pet.weight
+    },
+    petImage () {
+      return this.pet.image
     }
   },
   links: [

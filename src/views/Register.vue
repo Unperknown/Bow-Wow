@@ -12,7 +12,8 @@
               <v-card-text>
                 <v-text-field v-model="ID" :counter="10" :rules="nameRules" label="아이디" required></v-text-field>
                 <v-text-field v-model="name" :counter="10" :rules="nameRules" label="이름" required></v-text-field>
-                <v-file-input show-size label="회원 님의 프로필 사진이 있다면 올려주세요!"></v-file-input>
+                <v-file-input v-model="userImage" v-on:change="processUserImage($event)" :rules="imageRules" accept="image/png, image/jpeg, image/bmp" show-size counter label="회원 님의 프로필 사진이 있다면 올려주세요!"></v-file-input>
+                <v-img v-bind:src="userProfile"></v-img>
               </v-card-text>
             </v-window-item>
             <v-window-item :value="2">
@@ -44,7 +45,8 @@
                 ></v-text-field>
                 <v-slider v-model="petAge" min="0" max="30" label="반려동물 나이" thumb-label></v-slider>
                 <v-slider v-model="petWeight" min="0" max="50" label="반려동물 무게" thumb-label></v-slider>
-                <v-file-input show-size label="반려동물을 대표할 프로필 사진을 올려주세요!"></v-file-input>
+                <v-file-input v-model="petImage" v-on:change="processPetImage($event)" :rules="imageRules" accept="image/png, image/jpeg, image/bmp" show-size counter label="반려동물을 대표할 사진을 올려주세요!"></v-file-input>
+                <v-img v-bind:src="petProfile"></v-img>
               </div>
             </v-window-item>
             <v-window-item :value="4">
@@ -80,15 +82,20 @@ export default {
   name: 'Register',
   data: () => ({
     step: 1,
+    userImage: null,
+    petImage: null,
 
     ID: '',
     name: '',
+    userProfile: '',
+
     password: '',
     confirmPassword: '',
 
     petName: '',
     petAge: 0,
     petWeight: 0,
+    petProfile: '',
 
     nameRules: [
       v => !!v || '필수 항목 입니다.',
@@ -97,6 +104,9 @@ export default {
     passwordRules: [
       v => !!v || '필수 항목 입니다.',
       v => (v.length >= 8 && v.length <= 16) || '8 ~ 16자리 이내로 입력해주세요.'
+    ],
+    imageRules: [
+      value => !value || value.size <= 2000000 || '2MB 이내의 사진만 올릴 수 있습니다!'
     ]
   }),
   computed: {
@@ -132,15 +142,54 @@ export default {
     }
   ],
   methods: {
+    processUserImage (e) {
+      if (!e || e.size > 2000000) {
+        this.userProfile = ''
+        return
+      }
+
+      this.userProfile = URL.createObjectURL(e)
+    },
+    processPetImage (e) {
+      if (!e || e.size > 2000000) {
+        this.petProfile = ''
+        return
+      }
+
+      this.petProfile = URL.createObjectURL(e)
+    },
+    /* uploadImage (event) {
+      const URL = 'http://foobar.com/upload';
+
+      let data = new FormData();
+      data.append('name', 'my-picture');
+      data.append('file', event.target.files[0]);
+      let config = {
+        header : {
+          'Content-Type' : 'image/png'
+        }
+      }
+      axios.put(
+        URL,
+        data,
+        config
+      ).then(
+        response => {
+          console.log('image upload response > ', response)
+        }
+      )
+    }, */
     register () {
       let user = {
         ID: this.ID,
         name: this.name,
         password: this.password,
+        userProfile: this.userProfile,
         petInfo: {
           name: this.petName,
           age: this.petAge,
-          weight: this.petWeight
+          weight: this.petWeight,
+          profile: this.petProfile
         }
       }
 

@@ -7,7 +7,7 @@
       <v-row align="center" justify="end">
       <span class="caption mr-2">{{ currentName }}님, 환영합니다.</span>
       <v-avatar size=30>
-         <img src="@/assets/account.png">
+         <img src="@/assets/profile.jpg">
       </v-avatar>
         <v-btn v-on:click="logout()" color="grey" icon>
           <v-img src="@/assets/logout.png"></v-img>

@@ -4,6 +4,7 @@
       <v-col xs="12" sm="7" md="6" lg="5" xl2="2">
         <v-card class="mx-auto pt-2 pl-2 pr-2 pb-2">
           <v-file-input
+            v-model="images"
             multiple
             accept="image/png, image/jpeg, image/bmp"
             placeholder="회원 님이 공유할 반려동물 사진을 올려주세요!"
@@ -25,12 +26,14 @@
 
 <script>
 import Store from '@/store'
-import Router from '@/router'
+// import Router from '@/router'
+import Authentication from '@/store/modules/auth'
 
 export default {
   name: 'Writing',
   data: () => ({
     username: '',
+    images: [],
     written: ''
   }),
   links: [
@@ -39,17 +42,25 @@ export default {
       to: '/share'
     }
   ],
+  mounted () {
+    Store
+      .dispatch('USER_LOAD', Authentication.getters.getToken())
+      .then(user => {
+        this.username = user.name
+      })
+      .catch(err => console.log(err))
+  },
   methods: {
     submit () {
       let share = {
-        username: '박준영',
-        images: [],
+        username: this.username,
+        images: this.images,
         written: this.written
       }
 
       Store
         .dispatch('SHARE_CREATE', share)
-        .then(share => Router.push('/share'))
+        .then(share => console.log(share)/* Router.push('/share') */)
         .catch(err => console.log(err))
     }
   }

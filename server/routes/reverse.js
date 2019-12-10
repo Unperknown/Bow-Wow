@@ -1,22 +1,13 @@
 var express = require('express');
 var router = express.Router();
 
-router.get('/', (req, res) => {
-  let token = req.query.accessToken;
-
-  let user = {
-    name: '박준영',
-    ID: 'unperknown',
-    password: 'asdfasdf',
-    petsInfo: {
-      name: '초롱이',
-      age: 5,
-      weight: 9
-    }
+router.post('/', (req, res) => {
+  let reserve = {
+    pickedTime: req.body.reverse.time,
+    pickedDate: req.body.reverse.date
   }
 
-  console.log(token);
-  res.json({ user: user });
+  res.json({ reserve: reserve });
 });
 
 module.exports = router;
