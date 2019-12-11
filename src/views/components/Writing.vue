@@ -26,7 +26,7 @@
 
 <script>
 import Store from '@/store'
-// import Router from '@/router'
+import Router from '@/router'
 import Authentication from '@/store/modules/auth'
 
 export default {
@@ -55,12 +55,13 @@ export default {
       let share = {
         username: this.username,
         images: this.images,
-        written: this.written
+        written: this.written,
+        likes: 0
       }
 
       Store
-        .dispatch('SHARE_CREATE', share)
-        .then(share => console.log(share)/* Router.push('/share') */)
+        .dispatch('SHARE_CREATE', { share: share })
+        .then(share => Router.push('/share'))
         .catch(err => console.log(err))
     }
   }

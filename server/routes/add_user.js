@@ -1,5 +1,5 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 const { USER_SUCCESS, USER_ERROR } = require('../action/user')
 const userPresenter = require('../presenter/user_presenter');
 

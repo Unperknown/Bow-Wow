@@ -1,43 +1,12 @@
 var express = require('express');
 var router = express.Router();
+const sharePresenter = require('../presenter/share_presenter');
 
 router.get('/', (req, res) => {
-  let share = [
-    {
-      username: 'unperknown',
-      images: [
-        {
-          src: 'https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg'
-        },
-        {
-          src: 'https://cdn.vuetifyjs.com/images/carousel/sky.jpg'
-        }
-      ],
-      written: '우리 귀여운 다람쥐!',
-      likes: 14
-    },
-    {
-      username: 'unperknown',
-      images: [
-        {
-          src: 'https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg'
-        }
-      ],
-      written: '우리 귀여운 다람쥐2!',
-      likes: 5
-    },
-    {
-      username: 'unperknown',
-      images: [
-        {
-          src: 'https://cdn.vuetifyjs.com/images/carousel/sky.jpg'
-        }
-      ],
-      written: '우리 귀여운 다람쥐3!',
-      likes: 1
-    }
-  ]
-  res.json({ articles: share });
+  sharePresenter.getAll()
+    .then(results => {
+      return res.json({ articles: results });
+    })
 });
 
 module.exports = router;

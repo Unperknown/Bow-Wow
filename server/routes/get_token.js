@@ -12,7 +12,7 @@ router.post('/', (req, res) => {
       if (user === null) {
         return res.json({ token: '', message: AUTH_ERROR });
       } else {
-        let token = jwt.sign({ user: user }, config.secret, { expiresIn: '24h' });
+        let token = jwt.sign({ user: user }, config.secret, { expiresIn: '1m' });
         return res.json({ token: token, message: AUTH_SUCCESS });
       }
     })

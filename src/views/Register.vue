@@ -2,7 +2,7 @@
   <v-container flat class="fill-height" fluid>
     <v-row align="center" justify="center">
       <v-col xs="12" sm="6" md="4" lg="3" xl2="2">
-        <v-card flat class="mx-auto" max-width="500">
+        <v-card class="mx-auto" max-width="500">
           <v-img src="@/assets/logo.png" class="mx-auto" aspect-ratio="1" width="70%"></v-img>
           <v-card-title class="title font-weight-regular justify-space-between">
             <span>{{ currentTitle }}</span>
@@ -125,9 +125,9 @@ export default {
     isNotCompleted () {
       switch (this.step) {
         case 1:
-          return (this.ID === '' || this.name === '')
+          return !(this.stringMatchesRule(this.ID) && this.stringMatchesRule(this.name))
         case 2:
-          return (this.password === '' || this.confirmPassword === '') || this.password !== this.confirmPassword
+          return !(this.passwordMatchesRule(this.password) && this.passwordMatchesRule(this.confirmPassword)) || this.password !== this.confirmPassword
         case 4:
           return true
         default:
@@ -142,6 +142,12 @@ export default {
     }
   ],
   methods: {
+    stringMatchesRule (v) {
+      return !!v && (v.length >= 1 && v.length <= 10)
+    },
+    passwordMatchesRule (v) {
+      return !!v && (v.length >= 8 && v.length <= 16)
+    },
     processUserImage (e) {
       if (!e || e.size > 2000000) {
         this.userProfile = ''

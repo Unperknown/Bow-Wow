@@ -20,7 +20,11 @@
           <v-carousel hide-delimiters>
             <v-carousel-item v-for="(image,i) in article.images" :key="i" :src="image.src"></v-carousel-item>
           </v-carousel>
-          <v-btn icon v-on:click="article.likes += 1"
+          <v-btn v-if="article.likes === 0" icon v-on:click="article.likes += 1"
+      color="grey lighten-1">
+            <v-icon>favorite</v-icon>
+          </v-btn>
+          <v-btn v-else icon v-on:click="article.likes += 1"
       color="pink lighten-1">
             <v-icon>favorite</v-icon>
           </v-btn>
