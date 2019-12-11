@@ -18,119 +18,72 @@
       </v-row>
     </v-toolbar>
   </v-card>
-  <v-container>
-    <v-row align="start" justify="end">
-    <v-btn class="mx-2" fab dark large color="pink"
-    icon
-    @click="dialogTime = !dialogTime">
-    <v-icon>
-    add_circle
-  </v-icon>
-  </v-btn>
-  </v-row>
+  <v-card
+    flat class="mx-auto"
+    max-width="500"
+  >
+    <v-list-item-group>
+      <v-list-item>
+        <v-list-item-content>
+        <div class="overline mb-4">병원 정보</div>
+        <v-list-item-title class="headline mb-1">Bow-wow 동물병원</v-list-item-title>
+        <v-list-item-subtitle>상세설명</v-list-item-subtitle>
+        </v-list-item-content>
+        <v-list-item-avatar
+        size="80"
+        color="grey"
+      >
+      <v-img src="@/assets/logo(2).png">
+      </v-img>
+      </v-list-item-avatar>
+      </v-list-item>
+
+      <v-list-item>
+        <v-list-item-content>
+        <v-list-item-title class="caption">주소</v-list-item-title>
+        <v-list-item-subtitle class="caption grey--text">광주 광산구 상무대로 312</v-list-item-subtitle>
+      </v-list-item-content>
+      </v-list-item>
+
+      <v-list-item>
+        <v-list-item-content>
+        <v-list-item-title class="caption">전화번호</v-list-item-title>
+        <v-list-item-subtitle class="caption grey--text">062-949-6800</v-list-item-subtitle>
+      </v-list-item-content>
+      </v-list-item>
+
+    </v-list-item-group>
+    <v-card-actions>
+      <v-btn text @click="dialogDate = !dialogDate">Date</v-btn>
+      <v-btn text  @click="dialogTime = !dialogTime">Time</v-btn>
+      <v-spacer></v-spacer>
+      <v-btn text large color="pink lighten-1" @click="dialogAlert=!dialogAlert">진료예약</v-btn>
+    </v-card-actions>
+  </v-card>
+  <v-dialog v-model="dialogDate" max-width="300px">
+    <v-date-picker v-model="pickerDate" color="pink lighten-1"></v-date-picker>
+    <v-btn color="pink lighten-1" @click="dialogDate = false">Submit</v-btn>
+  </v-dialog>
   <v-dialog v-model="dialogTime" max-width="300px">
     <v-time-picker v-model="pickerTime" ampm-in-title color="pink lighten-1"></v-time-picker>
     <v-btn color="pink lighten-1" @click="dialogTime = false">Submit</v-btn>
   </v-dialog>
-  <v-card
-    max-width="475"
-    flat class="mx-auto"
-  >
-    <v-list>
-      <v-list-item>
-        <v-list-item-content>
-          <v-list-item-title>먹이알림</v-list-item-title>
-          <v-list-item-subtitle>상단 '+' 버튼으로 알람을 추가하세요.</v-list-item-subtitle>
-        </v-list-item-content>
-      </v-list-item>
-    </v-list>
-
-    <v-divider></v-divider>
-
-    <v-list
-      subheader
-      two-line
-      flat
-    >
-      <v-subheader>알람 선택</v-subheader>
-
-      <v-list-item-group
-        v-model="settings"
-        multiple
-      >
-        <v-list-item>
-          <template v-slot:default="{ active, toggle }">
-            <v-list-item-action>
-              <v-checkbox
-                v-model="active"
-                color="pink lighten-1"
-                @click="toggle"
-              ></v-checkbox>
-            </v-list-item-action>
-
-            <v-list-item-content>
-              <v-list-item-title>6 : 30</v-list-item-title>
-              <v-list-item-subtitle>오전</v-list-item-subtitle>
-            </v-list-item-content>
-          </template>
-        </v-list-item>
-
-        <v-list-item>
-          <template v-slot:default="{ active, toggle }">
-            <v-list-item-action>
-              <v-checkbox
-                v-model="active"
-                color="pink lighten-1"
-                v-on:click="counter += 0.5"
-                @click="toggle"
-              ></v-checkbox>
-            </v-list-item-action>
-
-            <v-list-item-content>
-              <v-list-item-title>11 : 00</v-list-item-title>
-              <v-list-item-subtitle>오전</v-list-item-subtitle>
-              <spen class="caption">{{counter}}</spen>
-            </v-list-item-content>
-          </template>
-        </v-list-item>
-
-        <v-list-item>
-          <template v-slot:default="{ active, toggle }">
-            <v-list-item-action>
-              <v-checkbox
-                v-model="active"
-                color="pink lighten-1"
-                @click="toggle"
-              ></v-checkbox>
-            </v-list-item-action>
-
-            <v-list-item-content>
-              <v-list-item-title>6 : 30</v-list-item-title>
-              <v-list-item-subtitle>오후</v-list-item-subtitle>
-            </v-list-item-content>
-          </template>
-        </v-list-item>
-
-        <v-list-item>
-          <template v-slot:default="{ active, toggle }">
-            <v-list-item-action>
-              <v-checkbox
-                v-model="active"
-                color="pink lighten-1"
-                @click="toggle"
-              ></v-checkbox>
-            </v-list-item-action>
-
-            <v-list-item-content>
-              <v-list-item-title>8 : 00</v-list-item-title>
-              <v-list-item-subtitle>오후</v-list-item-subtitle>
-            </v-list-item-content>
-          </template>
-        </v-list-item>
-      </v-list-item-group>
-    </v-list>
-  </v-card>
-  </v-container>
+  <v-flex row-wrap justify-center>
+    <v-row>
+      <v-dialog v-model="dialogAlert" max-width="400px">
+    <v-card>
+      <v-row justify="center">
+      <v-card-title class="font-weight-bold">Bow-Wow 동물병원</v-card-title>
+      <v-card-subtitle>진료 예약이 완료되었습니다.</v-card-subtitle>
+      </v-row>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn text large color="pink lighten-1" @click="dialogAlert= false">확인</v-btn>
+        </v-card-actions>
+    </v-card>
+  </v-dialog>
+    </v-row>
+  </v-flex>
   <v-bottom-navigation fixed="true"
       :value="activeBtn"
       grow
@@ -158,7 +111,11 @@
         </v-bottom-navigation>
   </v-app>
 </template>
-
+<style>
+.row {
+margin-right: 0 !important;
+}
+</style>
 <script>
 export default {
   name: 'App',
@@ -166,16 +123,18 @@ export default {
     return {
       bottomNav: 'recent',
 
+      dialogDate: false,
+
       dialogTime: false,
 
-      counter: 0,
+      dialogAlert: false,
+
+      pickerDate: new Date().toISOString().substr(0, 10),
+
+      alert: true,
 
       pickerTime: null
     }
-  },
-
-  data1: () => ({
-    settings: []
-  })
+  }
 }
 </script>

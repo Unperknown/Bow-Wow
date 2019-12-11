@@ -73,7 +73,8 @@
       <v-dialog v-model="dialogAlert" max-width="400px">
     <v-card>
       <v-row justify="center">
-      <v-card-title class="font-weight-bold">진료 예약이 완료되었습니다.</v-card-title>
+      <v-card-title class="font-weight-bold">Bow-Wow 동물병원</v-card-title>
+      <v-card-subtitle>진료 예약이 완료되었습니다.</v-card-subtitle>
       </v-row>
         <v-card-actions>
           <v-spacer></v-spacer>
