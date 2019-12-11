@@ -13,10 +13,11 @@ const storage = multer.diskStorage({
 const upload = multer({
     storage: storage,
     limits: { fileSize: 1000000 },
-}).single('image');
+}).single('userImage');
 
 router.post('/', (req, res, next) => {
     upload(req, res, (err) => {
+        console.log(req.file);
         let file = req.file;
 
         if (!err) {

@@ -12,7 +12,7 @@
               <v-card-text>
                 <v-text-field v-model="ID" :counter="10" :rules="nameRules" label="아이디" required></v-text-field>
                 <v-text-field v-model="name" :counter="10" :rules="nameRules" label="이름" required></v-text-field>
-                <v-file-input v-model="userImage" v-on:change="uploadUserImage($event)" :rules="imageRules" accept="image/png, image/jpeg, image/bmp" show-size counter label="회원 님의 프로필 사진이 있다면 올려주세요!"></v-file-input>
+                <v-file-input v-model="userImage" name="userImage" v-on:change="uploadUserImage($event)" accept="image/png, image/jpeg, image/bmp" show-size counter label="회원 님의 프로필 사진이 있다면 올려주세요!"></v-file-input>
                 <v-img v-bind:src="userImagePath"></v-img>
               </v-card-text>
             </v-window-item>
@@ -45,7 +45,7 @@
                 ></v-text-field>
                 <v-slider v-model="petAge" min="0" max="30" label="반려동물 나이" thumb-label></v-slider>
                 <v-slider v-model="petWeight" min="0" max="50" label="반려동물 무게" thumb-label></v-slider>
-                <v-file-input v-model="petImage" v-on:change="uploadPetImage($event)" :rules="imageRules" accept="image/png, image/jpeg, image/bmp" show-size counter label="반려동물을 대표할 사진을 올려주세요!"></v-file-input>
+                <v-file-input v-model="petImage" name="petImage" v-on:change="uploadPetImage($event)" :rules="imageRules" accept="image/png, image/jpeg, image/bmp" show-size counter label="반려동물을 대표할 사진을 올려주세요!"></v-file-input>
                 <v-img v-bind:src="petImagePath"></v-img>
               </div>
             </v-window-item>
@@ -154,7 +154,7 @@ export default {
       console.log(e)
       const formData = new FormData()
 
-      formData.append('image', e)
+      formData.append('userImage', e)
 
       const config = {
         headers: {
@@ -176,7 +176,7 @@ export default {
       console.log(e)
       const formData = new FormData()
 
-      formData.append('image', e)
+      formData.append('petImage', e)
 
       const config = {
         headers: {
