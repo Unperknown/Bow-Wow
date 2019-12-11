@@ -1,6 +1,6 @@
 <template>
 <v-app id="app">
-<v-card
+  <v-card
     color="grey lighten-4"
     flat
     height="50px"
@@ -18,57 +18,120 @@
       </v-row>
     </v-toolbar>
   </v-card>
-<v-comtainer>
-  <v-row align="start" justify="end">
-    <v-btn  class="mx-2" fab dark large color="pink" icon>
+  <v-container>
+    <v-row align="start" justify="end">
+    <v-btn class="mx-2" fab dark large color="pink"
+    icon
+    @click="dialogTime = !dialogTime">
     <v-icon>
     add_circle
   </v-icon>
   </v-btn>
   </v-row>
-  <v-row
-    align="center"
-    justify="center">
-    <v-col
-      xs="12"
-      sm="7"
-      md="6"
-      lg="5"
-      xl2="2"
-    >
-      <v-card
+  <v-dialog v-model="dialogTime" max-width="300px">
+    <v-time-picker v-model="pickerTime" ampm-in-title color="pink lighten-1"></v-time-picker>
+    <v-btn color="pink lighten-1" @click="dialogTime = false">Submit</v-btn>
+  </v-dialog>
+  <v-card
+    max-width="475"
     flat class="mx-auto"
   >
-    <v-list-item>
-      <v-list-item-avatar color="white">
-        <v-icon icon>
-          account_circle
-        </v-icon>
-      </v-list-item-avatar>
-      <v-list-item-content>
-        <v-list-item-title class="headline">My Pet</v-list-item-title>
-        <v-list-item-subtitle>by Bow-Wow</v-list-item-subtitle>
-      </v-list-item-content>
-    </v-list-item>
+    <v-list>
+      <v-list-item>
+        <v-list-item-content>
+          <v-list-item-title>먹이알림</v-list-item-title>
+          <v-list-item-subtitle>상단 '+' 버튼으로 알람을 추가하세요.</v-list-item-subtitle>
+        </v-list-item-content>
+      </v-list-item>
+    </v-list>
 
-    <v-carousel hide-delimiters>
-    <v-carousel-item
-      v-for="(item,i) in items"
-      :key="i"
-      :src="item.src"
-    ></v-carousel-item>
-  </v-carousel>
-    <v-btn icon v-on:click="counter += 1"
-      color="pink lighten-1">
-        <v-icon>favorite</v-icon>
-      </v-btn>
-      <spen class="caption">{{counter}}</spen>
-      <v-divider></v-divider>
-    <v-card-text>
-     Bow-Wow SNS
-    </v-card-text>
+    <v-divider></v-divider>
+
+    <v-list
+      subheader
+      two-line
+      flat
+    >
+      <v-subheader>알람 선택</v-subheader>
+
+      <v-list-item-group
+        v-model="settings"
+        multiple
+      >
+        <v-list-item>
+          <template v-slot:default="{ active, toggle }">
+            <v-list-item-action>
+              <v-checkbox
+                v-model="active"
+                color="pink lighten-1"
+                @click="toggle"
+              ></v-checkbox>
+            </v-list-item-action>
+
+            <v-list-item-content>
+              <v-list-item-title>6 : 30</v-list-item-title>
+              <v-list-item-subtitle>오전</v-list-item-subtitle>
+            </v-list-item-content>
+          </template>
+        </v-list-item>
+
+        <v-list-item>
+          <template v-slot:default="{ active, toggle }">
+            <v-list-item-action>
+              <v-checkbox
+                v-model="active"
+                color="pink lighten-1"
+                v-on:click="counter += 0.5"
+                @click="toggle"
+              ></v-checkbox>
+            </v-list-item-action>
+
+            <v-list-item-content>
+              <v-list-item-title>11 : 00</v-list-item-title>
+              <v-list-item-subtitle>오전</v-list-item-subtitle>
+              <spen class="caption">{{counter}}</spen>
+            </v-list-item-content>
+          </template>
+        </v-list-item>
+
+        <v-list-item>
+          <template v-slot:default="{ active, toggle }">
+            <v-list-item-action>
+              <v-checkbox
+                v-model="active"
+                color="pink lighten-1"
+                @click="toggle"
+              ></v-checkbox>
+            </v-list-item-action>
+
+            <v-list-item-content>
+              <v-list-item-title>6 : 30</v-list-item-title>
+              <v-list-item-subtitle>오후</v-list-item-subtitle>
+            </v-list-item-content>
+          </template>
+        </v-list-item>
+
+        <v-list-item>
+          <template v-slot:default="{ active, toggle }">
+            <v-list-item-action>
+              <v-checkbox
+                v-model="active"
+                color="pink lighten-1"
+                @click="toggle"
+              ></v-checkbox>
+            </v-list-item-action>
+
+            <v-list-item-content>
+              <v-list-item-title>8 : 00</v-list-item-title>
+              <v-list-item-subtitle>오후</v-list-item-subtitle>
+            </v-list-item-content>
+          </template>
+        </v-list-item>
+      </v-list-item-group>
+    </v-list>
   </v-card>
-      <v-bottom-navigation fixed="true"
+  </v-container>
+  <v-bottom-navigation fixed="true"
       :value="activeBtn"
       grow
       color="pink lighten-1"
@@ -82,20 +145,17 @@
           <span>SNS</span>
           <v-icon>mode_comment</v-icon>
         </v-btn>
-
         <v-btn>
-          <span>홈</span>
-          <v-icon>home</v-icon>
+          <span>동물관리</span>
+          <v-icon>healing</v-icon>
         </v-btn>
+
           <v-btn>
             <span>추천</span>
             <v-icon>thumb_up_alt</v-icon>
           </v-btn>
 
         </v-bottom-navigation>
-      </v-col>
-   </v-row>
-  </v-comtainer>
   </v-app>
 </template>
 
@@ -106,18 +166,16 @@ export default {
     return {
       bottomNav: 'recent',
 
+      dialogTime: false,
+
       counter: 0,
 
-      items: [
-        {
-          src: 'https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg'
-        },
-
-        {
-          src: 'https://cdn.vuetifyjs.com/images/carousel/sky.jpg'
-        }
-      ]
+      pickerTime: null
     }
-  }
+  },
+
+  data1: () => ({
+    settings: []
+  })
 }
 </script>

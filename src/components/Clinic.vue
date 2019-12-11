@@ -57,7 +57,7 @@
       <v-btn text @click="dialogDate = !dialogDate">Date</v-btn>
       <v-btn text  @click="dialogTime = !dialogTime">Time</v-btn>
       <v-spacer></v-spacer>
-      <v-btn text large color="pink lighten-1">진료예약</v-btn>
+      <v-btn text large color="pink lighten-1" @click="dialogAlert=!dialogAlert">진료예약</v-btn>
     </v-card-actions>
   </v-card>
   <v-dialog v-model="dialogDate" max-width="300px">
@@ -68,6 +68,21 @@
     <v-time-picker v-model="pickerTime" ampm-in-title color="pink lighten-1"></v-time-picker>
     <v-btn color="pink lighten-1" @click="dialogTime = false">Submit</v-btn>
   </v-dialog>
+  <v-flex row-wrap justify-center>
+    <v-row>
+      <v-dialog v-model="dialogAlert" max-width="400px">
+    <v-card>
+      <v-row justify="center">
+      <v-card-title class="font-weight-bold">진료 예약이 완료되었습니다.</v-card-title>
+      </v-row>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn text large color="pink lighten-1" @click="dialogAlert= false">확인</v-btn>
+        </v-card-actions>
+    </v-card>
+  </v-dialog>
+    </v-row>
+  </v-flex>
   <v-bottom-navigation fixed="true"
       :value="activeBtn"
       grow
@@ -95,7 +110,11 @@
         </v-bottom-navigation>
   </v-app>
 </template>
-
+<style>
+.row {
+margin-right: 0 !important;
+}
+</style>
 <script>
 export default {
   name: 'Clinic',
@@ -107,7 +126,11 @@ export default {
 
       dialogTime: false,
 
+      dialogAlert: false,
+
       pickerDate: new Date().toISOString().substr(0, 10),
+
+      alert: true,
 
       pickerTime: null
     }
