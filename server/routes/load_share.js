@@ -13,7 +13,8 @@ router.get('/', (req, res) => {
           src: 'https://cdn.vuetifyjs.com/images/carousel/sky.jpg'
         }
       ],
-      written: '우리 귀여운 다람쥐!'
+      written: '우리 귀여운 다람쥐!',
+      likes: 14
     },
     {
       username: 'unperknown',
@@ -22,12 +23,18 @@ router.get('/', (req, res) => {
           src: 'https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg'
         }
       ],
-      written: '우리 귀여운 다람쥐2!'
+      written: '우리 귀여운 다람쥐2!',
+      likes: 5
     },
     {
       username: 'unperknown',
-      images: [],
-      written: '우리 귀여운 다람쥐3!'
+      images: [
+        {
+          src: 'https://cdn.vuetifyjs.com/images/carousel/sky.jpg'
+        }
+      ],
+      written: '우리 귀여운 다람쥐3!',
+      likes: 1
     }
   ]
   res.json({ articles: share });

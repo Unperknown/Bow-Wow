@@ -184,17 +184,15 @@ export default {
         ID: this.ID,
         name: this.name,
         password: this.password,
-        userProfile: this.userProfile,
         petInfo: {
           name: this.petName,
           age: this.petAge,
-          weight: this.petWeight,
-          profile: this.petProfile
+          weight: this.petWeight
         }
       }
 
       Store
-        .dispatch('USER_CREATE', user)
+        .dispatch('USER_CREATE', { user: user })
         .then(user => Router.push('/account/signin'))
         .catch(err => console.log(err))
     }

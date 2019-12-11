@@ -40,7 +40,7 @@ export default {
     Store
       .dispatch('USER_LOAD', Authentication.getters.getToken())
       .then(user => {
-        this.pet = user.petsInfo
+        this.pet = user.petInfo
       })
       .catch(err => console.log(err))
   },
@@ -58,7 +58,7 @@ export default {
       return this.pet.weight
     },
     petImage () {
-      return this.pet.image
+      return undefined
     }
   },
   links: [

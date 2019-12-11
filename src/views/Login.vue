@@ -56,7 +56,7 @@ export default {
       let password = this.password
       Store
         .dispatch('AUTH_REQUEST', { user: { ID: ID, password: password } })
-        .then(token => Router.push('/'))
+        .then(token => Router.go('/'))
         .catch(err => console.log(err))
     }
   }

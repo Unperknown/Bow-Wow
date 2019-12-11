@@ -8,8 +8,7 @@ axios.defaults.headers.common['Access-Control-Allow-Headers'] = 'Authorization, 
 const state = {
   token: localStorage.getItem('token') || '',
   status: '',
-  hasLoadedOnce: false,
-  user: localStorage.getItem('user') || ''
+  hasLoadedOnce: false
 }
 
 const getters = {
@@ -38,17 +37,14 @@ const actions = {
       tokenGetter(user)
         .then(resp => {
           const token = resp.data.token
-          const user = resp.data.user
           localStorage.setItem('token', token)
-          localStorage.setItem('user', user)
           axios.defaults.headers.common['Authorization'] = token
-          commit(AUTH_SUCCESS, { token, user })
+          commit(AUTH_SUCCESS, { token })
           resolve(token)
         })
         .catch(err => {
           commit(AUTH_ERROR)
           localStorage.removeItem('token')
-          localStorage.removeItem('user')
           reject(err)
         })
     })

@@ -1,14 +1,25 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
+const jwt = require('jsonwebtoken');
+const config = require('../config/config');
+const userPresenter = require('../presenter/user_presenter');
+const { AUTH_SUCCESS, AUTH_ERROR } = require('../action/auth');
 
 router.post('/', (req, res) => {
-  let data = {
-    token: "RRRAAAANNNNNDOOOOOOMMMM",
-    user: req.body.user
-  };
-
-  console.log(data);
-  res.json(data);
+  let mockedUser = req.body.user
+  userPresenter.validate(mockedUser)
+    .then(user => {
+      if (user === null) {
+        return res.json({ token: '', message: AUTH_ERROR });
+      } else {
+        let token = jwt.sign({ user: user }, config.secret, { expiresIn: '24h' });
+        return res.json({ token: token, message: AUTH_SUCCESS });
+      }
+    })
+    .catch(err => {
+      console.log(err);
+      return res.json({ token: '', message: AUTH_ERROR });
+    });
 });
 
 module.exports = router;

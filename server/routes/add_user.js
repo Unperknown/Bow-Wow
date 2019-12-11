@@ -1,11 +1,24 @@
 var express = require('express');
 var router = express.Router();
+const { USER_SUCCESS, USER_ERROR } = require('../action/user')
+const userPresenter = require('../presenter/user_presenter');
 
 router.post('/', (req, res) => {
-  let user = req.body;
-  console.log(user);
-  // User 정보 DB에 올리기
-  res.json({ user: user });
+  let user = req.body.user;
+
+  userPresenter.create(user)
+    .then(message => {
+      if (message === USER_SUCCESS) {
+        res.json({ user: user });
+      }
+      else {
+        res.json({ user: {}, error: USER_ERROR });
+      }
+    })
+    .catch(err => {
+      console.log(err);
+      res.json({ user: {}, error: USER_ERROR })
+    });
 });
 
 module.exports = router;

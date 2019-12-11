@@ -48,6 +48,12 @@ const actions = {
       sendUserInfo(user)
         .then(resp => {
           const user = resp.data.user
+
+          if (user === {}) {
+            commit(USER_ERROR)
+            reject(resp.data.error)
+          }
+
           commit(USER_SUCCESS, { user })
           resolve(user)
         })

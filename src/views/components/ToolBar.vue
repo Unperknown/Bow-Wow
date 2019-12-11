@@ -7,7 +7,8 @@
       <v-row align="center" justify="end">
       <span class="caption mr-2">{{ currentName }}님, 환영합니다.</span>
       <v-avatar size=30>
-         <img src="@/assets/profile.jpg">
+         <v-img v-if="userProfile !== ''" v-bind:src="userProfile"></v-img>
+         <v-img v-else src="@/assets/account.png"></v-img>
       </v-avatar>
         <v-btn v-on:click="logout()" color="grey" icon>
           <v-img src="@/assets/logout.png"></v-img>
@@ -33,7 +34,8 @@ import Authentication from '@/store/modules/auth'
 export default {
   name: 'ToolBar',
   data: () => ({
-    username: ''
+    username: '',
+    userProfile: ''
   }),
   links: [
     {
