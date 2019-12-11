@@ -10,7 +10,8 @@
         <v-card v-for="(article, i) in articles" :key="i" class="mx-auto mb-12">
           <v-list-item>
             <v-list-item-avatar color="white" size=40>
-              <v-img src="@/assets/profile.jpg"></v-img>
+              <v-img v-if="article.userProfile !== ''" v-bind:src="article.userProfile"></v-img>
+              <v-img v-else src="@/assets/profile.jpg"></v-img>
             </v-list-item-avatar>
             <v-list-item-content>
               <v-list-item-title class="subtitle-1 font-weight-bold">{{ article.username }}</v-list-item-title>

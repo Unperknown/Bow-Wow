@@ -29,6 +29,7 @@ export default {
     imageStorage: [],
 
     username: '',
+    userProfile: '',
     imagePaths: [],
     written: '',
     imageRules: [
@@ -46,6 +47,7 @@ export default {
       .dispatch('USER_LOAD', Authentication.getters.getToken())
       .then(user => {
         this.username = user.name
+        this.userProfile = user.imagePath
       })
       .catch(err => console.log(err))
   },
@@ -78,6 +80,7 @@ export default {
     submit () {
       let share = {
         username: this.username,
+        userProfile: this.userProfile,
         imagePaths: this.imagePaths,
         written: this.written,
         likes: 0

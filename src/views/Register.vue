@@ -12,8 +12,8 @@
               <v-card-text>
                 <v-text-field v-model="ID" :counter="10" :rules="nameRules" label="아이디" required></v-text-field>
                 <v-text-field v-model="name" :counter="10" :rules="nameRules" label="이름" required></v-text-field>
-                <v-file-input v-model="userImage" v-on:change="processUserImage($event)" :rules="imageRules" accept="image/png, image/jpeg, image/bmp" show-size counter label="회원 님의 프로필 사진이 있다면 올려주세요!"></v-file-input>
-                <v-img v-bind:src="userProfile"></v-img>
+                <v-file-input v-model="userImage" v-on:change="uploadUserImage($event)" :rules="imageRules" accept="image/png, image/jpeg, image/bmp" show-size counter label="회원 님의 프로필 사진이 있다면 올려주세요!"></v-file-input>
+                <v-img v-bind:src="userImagePath"></v-img>
               </v-card-text>
             </v-window-item>
             <v-window-item :value="2">
@@ -45,8 +45,8 @@
                 ></v-text-field>
                 <v-slider v-model="petAge" min="0" max="30" label="반려동물 나이" thumb-label></v-slider>
                 <v-slider v-model="petWeight" min="0" max="50" label="반려동물 무게" thumb-label></v-slider>
-                <v-file-input v-model="petImage" v-on:change="processPetImage($event)" :rules="imageRules" accept="image/png, image/jpeg, image/bmp" show-size counter label="반려동물을 대표할 사진을 올려주세요!"></v-file-input>
-                <v-img v-bind:src="petProfile"></v-img>
+                <v-file-input v-model="petImage" v-on:change="uploadPetImage($event)" :rules="imageRules" accept="image/png, image/jpeg, image/bmp" show-size counter label="반려동물을 대표할 사진을 올려주세요!"></v-file-input>
+                <v-img v-bind:src="petImagePath"></v-img>
               </div>
             </v-window-item>
             <v-window-item :value="4">
@@ -77,6 +77,7 @@
 <script>
 import Store from '@/store'
 import Router from '@/router'
+import axios from 'axios'
 
 export default {
   name: 'Register',
@@ -88,6 +89,7 @@ export default {
     ID: '',
     name: '',
     userProfile: '',
+    userImagePath: '',
 
     password: '',
     confirmPassword: '',
@@ -95,7 +97,7 @@ export default {
     petName: '',
     petAge: 0,
     petWeight: 0,
-    petProfile: '',
+    petImagePath: '',
 
     nameRules: [
       v => !!v || '필수 항목 입니다.',
@@ -148,52 +150,61 @@ export default {
     passwordMatchesRule (v) {
       return !!v && (v.length >= 8 && v.length <= 16)
     },
-    processUserImage (e) {
-      if (!e || e.size > 2000000) {
-        this.userProfile = ''
-        return
-      }
+    uploadUserImage (e) {
+      console.log(e)
+      const formData = new FormData()
 
-      this.userProfile = URL.createObjectURL(e)
-    },
-    processPetImage (e) {
-      if (!e || e.size > 2000000) {
-        this.petProfile = ''
-        return
-      }
+      formData.append('image', e)
 
-      this.petProfile = URL.createObjectURL(e)
-    },
-    /* uploadImage (event) {
-      const URL = 'http://foobar.com/upload';
-
-      let data = new FormData();
-      data.append('name', 'my-picture');
-      data.append('file', event.target.files[0]);
-      let config = {
-        header : {
-          'Content-Type' : 'image/png'
+      const config = {
+        headers: {
+          'Content-Type': 'multipart/form-data'
         }
       }
-      axios.put(
-        URL,
-        data,
-        config
-      ).then(
-        response => {
-          console.log('image upload response > ', response)
+
+      axios.post('/api/upload/user', formData, config)
+        .then(resp => {
+          console.log(resp.data.imagePath)
+
+          this.userImagePath = resp.data.imagePath
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+    uploadPetImage (e) {
+      console.log(e)
+      const formData = new FormData()
+
+      formData.append('image', e)
+
+      const config = {
+        headers: {
+          'Content-Type': 'multipart/form-data'
         }
-      )
-    }, */
+      }
+
+      axios.post('/api/upload/pet', formData, config)
+        .then(resp => {
+          console.log(resp.data.imagePath)
+
+          this.petImagePath = resp.data.imagePath
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
     register () {
       let user = {
         ID: this.ID,
         name: this.name,
         password: this.password,
+        imagePath: this.userImagePath,
         petInfo: {
           name: this.petName,
           age: this.petAge,
-          weight: this.petWeight
+          weight: this.petWeight,
+          imagePath: this.petImagePath
         }
       }
 

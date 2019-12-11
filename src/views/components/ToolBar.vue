@@ -52,6 +52,7 @@ export default {
       .dispatch('USER_LOAD', Authentication.getters.getToken())
       .then(user => {
         this.username = user.name
+        this.userProfile = user.imagePath
       })
       .catch(err => console.log(err))
   },

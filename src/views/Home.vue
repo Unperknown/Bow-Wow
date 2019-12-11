@@ -9,7 +9,7 @@
               <v-row class="mb-4 ml-2" align="center">
                 <h2 class="headline font-weight-bold text-center">나의 반려동물</h2>
               </v-row>
-              <v-img v-if="petImage !== undefined" v-bind:src="petImage" width="50%" class="mx-auto"></v-img>
+              <v-img v-if="petImage !== ''" v-bind:src="petImage" width="50%" class="mx-auto"></v-img>
               <v-img v-else src="@/assets/dog.png" width="50%" class="mx-auto"></v-img>
               <div v-if="isPetExists">
                 <h3 class="title font-weight-bold mt-3 text-center">{{ petName }}</h3>
@@ -58,7 +58,7 @@ export default {
       return this.pet.weight
     },
     petImage () {
-      return undefined
+      return this.pet.imagePath
     }
   },
   links: [
