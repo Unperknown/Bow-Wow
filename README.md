@@ -13,7 +13,7 @@
 
 이 저장소에 대해 더 좋은 방향으로 기여할 수 있으면 언제든지 Issue 및 Pull Request를 열어주세요!
 
-- [🔗Unperknown](https://github.com/Unperknown) : PWA 백엔드 전반(Node), 기획 및 UX 보조
+- [🔗Unperknown](https://github.com/Unperknown) : PWA 개발 및 백엔드 전반(Node), 기획 및 UX 보조
 - [🔗winkpsj0529](https://github.com/winkpsj0529) : 프로덕트 기획, UI/UX 디자인, 프론트엔드(Vue)
 
 ## 🗓 마일스톤
@@ -60,3 +60,7 @@ npm run build
 ```
 npm run lint
 ```
+
+## 📈 진척 과정
+
+곧 업로드될 예정입니다!
