@@ -63,7 +63,7 @@ export default {
   methods: {
     logout: () => {
       Store
-        .dispatch('AUTH_LOGOUT')
+        .dispatch('AUTH_REVOKE')
         .then(() => Router.push('/account/signin'))
         .catch(err => console.log(err))
     }

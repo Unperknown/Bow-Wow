@@ -9,6 +9,8 @@
 <script>
 import ToolBar from '@/views/components/ToolBar'
 import BottomNav from '@/views/components/BottomNav'
+import Store from '@/store'
+import Router from '@/router'
 import Authentication from '@/store/modules/auth'
 
 if ('serviceWorker' in navigator) {
@@ -27,6 +29,18 @@ export default {
     ToolBar,
     BottomNav
   },
+  mounted () {
+    if (this.isAuthenticated()) {
+      Store
+        .dispatch('AUTH_EXPIRED')
+        .then(message => {
+          if (message !== 'AUTH_SUCCESS') {
+            Router.go('/account/signin')
+          }
+        })
+        .catch(err => console.log(err))
+    }
+  },
   links: [
     {
       name: 'Home',
@@ -42,7 +56,7 @@ export default {
     }
   ],
   methods: {
-    isAuthenticated: () => {
+    isAuthenticated () {
       return Authentication.getters.isAuthenticated()
     }
   }

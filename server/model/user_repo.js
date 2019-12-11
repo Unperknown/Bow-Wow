@@ -15,7 +15,7 @@ exports.insert = async data => {
 };
 
 exports.find = async query => {
-    const client = await mongoClient.connect(dbURL, { useNewUrlParser: true }).catch(err => console.log(err));
+    const client = await mongoClient.connect(dbURL, { useUnifiedTopology: true, useNewUrlParser: true }).catch(err => console.log(err));
     const db = client.db(dbName).collection(colName);
 
     let result = await db.findOne(query);
@@ -26,7 +26,7 @@ exports.find = async query => {
 }
 
 exports.update = async (filter, update) => {
-    const client = await mongoClient.connect(dbURL, { useNewUrlParser: true }).catch(err => console.log(err));
+    const client = await mongoClient.connect(dbURL, { useUnifiedTopology: true, useNewUrlParser: true }).catch(err => console.log(err));
     const db = client.db(dbName).collection(colName);
 
     let result = await db.findOneAndUpdate(filter, update);

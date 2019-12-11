@@ -1,4 +1,4 @@
-import { AUTH_REQUEST, AUTH_ERROR, AUTH_SUCCESS, AUTH_LOGOUT } from '../action/auth'
+import { AUTH_GRANT, AUTH_EXPIRED, AUTH_ERROR, AUTH_SUCCESS, AUTH_REVOKE } from '../action/auth'
 import axios from 'axios'
 
 axios.defaults.baseURL = 'http://localhost:3000'
@@ -7,22 +7,32 @@ axios.defaults.headers.common['Access-Control-Allow-Headers'] = 'Authorization, 
 
 const state = {
   token: localStorage.getItem('token') || '',
-  status: '',
-  hasLoadedOnce: false
+  status: ''
 }
 
 const getters = {
   isAuthenticated: () => !!state.token,
   authStatus: () => state.status,
-  getCurrentUser: () => state.user,
   getToken: () => state.token
 }
 
-const tokenGetter = (user) => {
+const generateToken = (user) => {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       try {
-        resolve(axios.post('/api/token/get', user))
+        resolve(axios.post('/api/token/generate', user))
+      } catch (err) {
+        reject(new Error(err))
+      }
+    }, 1000)
+  })
+}
+
+const checkToken = (token) => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      try {
+        resolve(axios.get(`/api/token/check?accessToken=${token}`))
       } catch (err) {
         reject(new Error(err))
       }
@@ -31,15 +41,14 @@ const tokenGetter = (user) => {
 }
 
 const actions = {
-  [AUTH_REQUEST]: ({ commit }, user) => {
+  [AUTH_GRANT]: ({ commit }, user) => {
     return new Promise((resolve, reject) => {
-      commit(AUTH_REQUEST)
-      tokenGetter(user)
+      commit(AUTH_GRANT)
+      generateToken(user)
         .then(resp => {
           const token = resp.data.token
           localStorage.setItem('token', token)
-          axios.defaults.headers.common['Authorization'] = token
-          commit(AUTH_SUCCESS, { token })
+          commit(AUTH_SUCCESS, token)
           resolve(token)
         })
         .catch(err => {
@@ -49,9 +58,27 @@ const actions = {
         })
     })
   },
-  [AUTH_LOGOUT]: ({ commit, dispatch }) => {
+  [AUTH_EXPIRED]: ({ commit }) => {
     return new Promise((resolve, reject) => {
-      commit(AUTH_LOGOUT)
+      commit(AUTH_EXPIRED)
+      checkToken(state.token)
+        .then(resp => {
+          const message = resp.data.message
+          if (message === AUTH_EXPIRED) {
+            commit(AUTH_REVOKE)
+          }
+          resolve(message)
+        })
+        .catch(err => {
+          commit(AUTH_ERROR)
+          localStorage.removeItem('token')
+          reject(err)
+        })
+    })
+  },
+  [AUTH_REVOKE]: ({ commit }) => {
+    return new Promise((resolve, reject) => {
+      commit(AUTH_REVOKE)
       localStorage.removeItem('token')
       resolve()
     })
@@ -59,20 +86,21 @@ const actions = {
 }
 
 const mutations = {
-  [AUTH_REQUEST]: (state) => {
+  [AUTH_GRANT]: (state) => {
     state.status = 'loading'
   },
-  [AUTH_SUCCESS]: (state, resp) => {
+  [AUTH_SUCCESS]: (state, token) => {
     state.status = 'success'
-    state.token = resp.token
-    state.user = resp.user
-    state.hasLoadedOnce = true
+    state.token = token
+  },
+  [AUTH_EXPIRED]: (state) => {
+    state.status = 'expired'
   },
   [AUTH_ERROR]: (state) => {
     state.status = 'error'
-    state.hasLoadedOnce = true
   },
-  [AUTH_LOGOUT]: (state) => {
+  [AUTH_REVOKE]: (state) => {
+    state.status = 'revoked'
     state.token = ''
   }
 }

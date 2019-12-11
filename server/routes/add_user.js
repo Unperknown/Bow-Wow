@@ -17,7 +17,7 @@ router.post('/', (req, res) => {
     })
     .catch(err => {
       console.log(err);
-      res.json({ user: {}, error: USER_ERROR })
+      res.json({ user: {}, error: USER_ERROR });
     });
 });
 

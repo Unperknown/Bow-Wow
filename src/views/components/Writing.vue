@@ -3,14 +3,7 @@
     <v-row align="center" justify="center">
       <v-col xs="12" sm="7" md="6" lg="5" xl2="2">
         <v-card class="mx-auto pt-2 pl-2 pr-2 pb-2">
-          <v-file-input
-            v-model="images"
-            multiple
-            accept="image/png, image/jpeg, image/bmp"
-            placeholder="회원 님이 공유할 반려동물 사진을 올려주세요!"
-            prepend-icon="camera"
-            label="사진"
-          ></v-file-input>
+          <v-file-input v-model="imageStorage" multiple name="images" v-on:change="uploadImage($event)" prepend-icon="camera" accept="image/png, image/jpeg, image/bmp" show-size counter placeholder="회원 님이 공유할 반려동물 사진을 올려주세요!" label="사진"></v-file-input>
           <v-card-text>
             <div>글</div>
             <v-textarea v-model="written" flat solo name="input-7-4" label="text" placeholder="회원 님이 공유할 문구를 간단히 적어주세요!"></v-textarea>
@@ -28,13 +21,19 @@
 import Store from '@/store'
 import Router from '@/router'
 import Authentication from '@/store/modules/auth'
+import axios from 'axios'
 
 export default {
   name: 'Writing',
   data: () => ({
+    imageStorage: [],
+
     username: '',
-    images: [],
-    written: ''
+    imagePaths: [],
+    written: '',
+    imageRules: [
+      value => !value || '먼저 사진을 올려주세요!'
+    ]
   }),
   links: [
     {
@@ -51,10 +50,35 @@ export default {
       .catch(err => console.log(err))
   },
   methods: {
+    uploadImage (e) {
+      console.log(e)
+      const formData = new FormData()
+
+      for (let i in e) {
+        console.log(e[i])
+        formData.append('images', e[i])
+      }
+
+      const config = {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      }
+
+      axios.post('/api/upload/share', formData, config)
+        .then(resp => {
+          console.log(resp.data.imagePaths)
+
+          this.imagePaths = resp.data.imagePaths
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
     submit () {
       let share = {
         username: this.username,
-        images: this.images,
+        imagePaths: this.imagePaths,
         written: this.written,
         likes: 0
       }

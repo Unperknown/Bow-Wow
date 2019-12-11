@@ -25,7 +25,7 @@ exports.update = async (filter, update) => {
     return result;
 }
 
-exports.findAll = async (sortQuery) => {
+exports.findAll = async sortQuery => {
     const client = await mongoClient.connect(dbURL, { useUnifiedTopology: true, useNewUrlParser: true }).catch(err => console.log(err));
     const db = client.db(dbName).collection(colName);
 
