@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { SHARE_SUCCESS, SHARE_ERROR } = require('../action/share')
+const { SHARE_SUCCESS, SHARE_ERROR } = require('../action/share');
 const sharePresenter = require('../presenter/share_presenter');
 
 router.post('/', (req, res) => {

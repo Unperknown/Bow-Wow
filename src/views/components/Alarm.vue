@@ -6,8 +6,8 @@
       </v-btn>
     </v-row>
     <v-dialog v-model="dialogTime" max-width="300px">
-      <v-time-picker v-model="pickerTime" ampm-in-title color="pink lighten-1"></v-time-picker>
-      <v-btn color="pink lighten-1" @click="dialogTime = false">Submit</v-btn>
+      <v-time-picker v-model="pickerTime" v-on:change="updateTime($event)" ampm-in-title color="pink lighten-1"></v-time-picker>
+      <v-btn color="pink lighten-1" @click="dialogTime = false; checkedNames.push(pickerTime); dialogAlert=!dialogAlert;">설정</v-btn>
     </v-dialog>
     <v-card max-width="475" flat class="mx-auto">
       <v-list>
@@ -25,57 +25,54 @@
         <v-subheader>알람 선택</v-subheader>
 
         <v-list-item-group v-model="settings" multiple>
-          <v-list-item>
-            <template v-slot:default="{ active, toggle }">
-              <v-list-item-action>
-                <v-checkbox v-model="active" color="pink lighten-1" @click="toggle"></v-checkbox>
-              </v-list-item-action>
-
-              <v-list-item-content>
-                <v-list-item-title>6 : 30</v-list-item-title>
-                <v-list-item-subtitle>오전</v-list-item-subtitle>
-              </v-list-item-content>
-            </template>
-          </v-list-item>
-
-          <v-list-item>
-            <template v-slot:default="{ active, toggle }">
-              <v-list-item-action>
-                <v-checkbox v-model="active" color="pink lighten-1" @click="toggle"></v-checkbox>
-              </v-list-item-action>
-
-              <v-list-item-content>
-                <v-list-item-title>11 : 00</v-list-item-title>
-                <v-list-item-subtitle>오전</v-list-item-subtitle>
-              </v-list-item-content>
-            </template>
-          </v-list-item>
-
-          <v-list-item>
-            <template v-slot:default="{ active, toggle }">
-              <v-list-item-action>
-                <v-checkbox v-model="active" color="pink lighten-1" @click="toggle"></v-checkbox>
-              </v-list-item-action>
-
-              <v-list-item-content>
-                <v-list-item-title>6 : 30</v-list-item-title>
-                <v-list-item-subtitle>오후</v-list-item-subtitle>
-              </v-list-item-content>
-            </template>
-          </v-list-item>
-
-          <v-list-item>
-            <template v-slot:default="{ active, toggle }">
-              <v-list-item-action>
-                <v-checkbox v-model="active" color="pink lighten-1" @click="toggle"></v-checkbox>
-              </v-list-item-action>
-
-              <v-list-item-content>
-                <v-list-item-title>8 : 00</v-list-item-title>
-                <v-list-item-subtitle>오후</v-list-item-subtitle>
-              </v-list-item-content>
-            </template>
-          </v-list-item>
+          <v-switch
+            class="ml-4"
+            color="pink lighten-1"
+            value="6:30"
+            v-model="checkedNames"
+            label="6:30"
+          ></v-switch>
+          <v-switch
+            class="ml-4"
+            color="pink lighten-1"
+            value="11:30"
+            v-model="checkedNames"
+            label="11:30"
+          ></v-switch>
+          <v-switch
+            class="ml-4"
+            color="pink lighten-1"
+            value="15:30"
+            v-model="checkedNames"
+            label="15:30"
+          ></v-switch>
+          <v-switch
+            class="ml-4"
+            color="pink lighten-1"
+            value="18:00"
+            v-model="checkedNames"
+            label="18:00"
+          ></v-switch>
+          <br />
+          <v-row justify="end">
+            <v-btn text large color="pink lighten-1" @click="dialogAlert=!dialogAlert">알림설정하기</v-btn>
+          </v-row>
+          <v-flex row-wrap justify-center>
+            <v-row>
+              <v-dialog v-model="dialogAlert" max-width="400px">
+                <v-card>
+                  <v-col justify="center">
+                    <v-card-title class="font-weight-bold">먹이알림설정</v-card-title>
+                    <v-card-subtitle>{{ checkedNames }}에 알림 설정이 완료되었습니다.</v-card-subtitle>
+                  </v-col>
+                  <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn text large color="pink lighten-1" @click="dialogAlert= false">확인</v-btn>
+                  </v-card-actions>
+                </v-card>
+              </v-dialog>
+            </v-row>
+          </v-flex>
         </v-list-item-group>
       </v-list>
     </v-card>
@@ -87,10 +84,18 @@ export default {
   name: 'Alarm',
   data () {
     return {
+      checkedNames: [],
       dialogTime: false,
+      dialogAlert: false,
       pickerTime: null,
 
       settings: []
+    }
+  },
+  methods: {
+    updateTime (e) {
+      console.log(e)
+      this.pickerTime = e
     }
   }
 }

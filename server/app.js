@@ -11,6 +11,7 @@ const loadUserRouter = require('./routes/load_user');
 
 const addShareRouter = require('./routes/add_share');
 const loadShareRouter = require('./routes/load_share');
+const updateLikesRouter = require('./routes/update_likes');
 
 const proceedReserveRouter = require('./routes/reverse');
 
@@ -36,6 +37,7 @@ app.use('/api/user/get', loadUserRouter);
 
 app.use('/api/share/add', addShareRouter);
 app.use('/api/share/load', loadShareRouter);
+app.use('/api/share/liked', updateLikesRouter);
 
 app.use('/api/reverse/proceed', proceedReserveRouter);
 

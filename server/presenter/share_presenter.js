@@ -16,8 +16,19 @@ exports.create = share => {
         })
 }
 
-exports.updateValue = () => {
-    return repository.update({ $inc: { likes : 1 } });
+exports.updateValue = share => {
+    return repository.update({ share_id: { $eq: share.share_id } }, { $inc: { likes : share.liked ? 1 : -1 } })
+        .then(async result => {
+            if (result.ok === 1) {
+                return SHARE_SUCCESS;
+            } 
+
+            return new Error(SHARE_ERROR);
+        })
+        .catch(err => {
+            console.log(err);
+            return new Error(SHARE_ERROR);
+        })
 }
 
 exports.getAll = () => {
