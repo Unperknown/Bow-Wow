@@ -1,2 +1,0 @@
-exports.USER_SUCCESS = 'USER_SUCCESS'
-exports.USER_ERROR = 'USER_ERROR'
